@@ -6,8 +6,9 @@ from toga.style import Pack
 
 
 class TogaApp(toga.App):
+    """Simple Toga application."""
 
-    def startup(self):
+    def startup(self) -> None:
         """Construct and show the Toga application."""
         main_box = toga.Box()
 
@@ -23,7 +24,7 @@ class TogaApp(toga.App):
         self.main_window.content = main_box
         self.main_window.show()
 
-    def say_hello(self, widget):
+    def say_hello(self, widget: object) -> None:
         """Get response from drf_project."""
         with httpx.Client() as client:
             response = client.get('http://127.0.0.1:8000/api/v1/hello')
@@ -36,5 +37,6 @@ class TogaApp(toga.App):
         )
 
 
-def main():
+def main() -> toga.App:
+    """Return Toga app."""
     return TogaApp()
