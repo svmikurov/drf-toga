@@ -20,9 +20,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from drf_app.views import HelloAPIView
+from drf_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/hello', HelloAPIView.as_view()),
+    path(
+        'api/v1/hello',
+        views.HelloAPIView.as_view(),
+    ),
+    path(
+        'api/v1/math-calc-exercise',
+        views.MathCalculateExerciseAPIView.as_view(),
+    ),
 ]

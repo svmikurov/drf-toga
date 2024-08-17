@@ -64,6 +64,7 @@ class CalculationExercise:
         self.calculation_type = calculation_type
         self.min_value = min_value
         self.max_value = max_value
+        self.__call__()
 
     def __call__(self) -> None:
         """Create task."""
