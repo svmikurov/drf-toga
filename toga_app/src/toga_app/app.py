@@ -15,7 +15,7 @@ class TogaApp(toga.App):
         """Construct and show the Toga application."""
         ################################################################
         # Buttons
-        btn_style = Pack(padding=(0, 5))
+        btn_style = Pack(padding=(0, 2))
         btn_greeting_button = toga.Button(
             text='Greeting',
             on_press=self.say_hello,
@@ -26,12 +26,12 @@ class TogaApp(toga.App):
             on_press=self.do_exercise,
             style=btn_style,
         )
-        btn_math_calc_exercise = toga.Button(
+        btn_goto_math_calc_exercise = toga.Button(
             text='Таблица умножения',
             on_press=self.goto_math_calc_exercise,
             style=btn_style,
         )
-        btn_back = toga.Button(
+        btn_goto_back = toga.Button(
             text='Go back',
             on_press=self.do_prev_content,
             style=btn_style,
@@ -44,13 +44,13 @@ class TogaApp(toga.App):
         self.main_box = toga.Box(
             children=[
                 btn_greeting_button,
-                btn_task_button,
-                btn_math_calc_exercise,
+                btn_goto_math_calc_exercise,
             ]
         )
         self.math_calc_exercise_box = toga.Box(
             children=[
-                btn_back,
+                btn_task_button,
+                btn_goto_back,
             ],
         )
         # End Boxes
