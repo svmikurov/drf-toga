@@ -1,0 +1,12 @@
+services:
+
+  drf-project:
+    container_name: drf-project
+    image: drf-project
+    volumes:
+      - ./drf_project:/drf_project
+    build:
+      context: .
+      dockerfile: ./docker/drf-project/Dockerfile
+    ports:
+      - '8000:8000'
