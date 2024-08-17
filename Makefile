@@ -10,6 +10,8 @@ up:
 down:
 	@$(COMPOSE) down
 
+rebuild: down build up
+
 # Linter
 ruff:
 	ruff check && ruff format --diff
