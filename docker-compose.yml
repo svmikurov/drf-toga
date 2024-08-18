@@ -9,4 +9,14 @@ services:
       context: .
       dockerfile: ./docker/drf-project/Dockerfile
     ports:
-      - '8000:8000'
+      - "8000:8000"
+
+  redis:
+    container_name: redis
+    image: redis
+    build:
+      context: .
+      dockerfile: ./docker/redis/Dockerfile
+    hostname: redis
+    ports:
+      - "6379:6379"
