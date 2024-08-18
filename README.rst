@@ -4,6 +4,14 @@ Django REST framework project with Toga mobile application
 
 The learn skill project.
 
+Skills
+~~~~~~
+
+- Django REST Framework
+- Docker
+- `Toga (BeeWare) <https://github.com/beeware>`_
+- Redis
+
 Install
 ~~~~~~~
 
