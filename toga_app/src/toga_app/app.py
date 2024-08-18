@@ -3,6 +3,7 @@
 import httpx
 import toga
 from toga.style import Pack
+from toga.widgets.base import Widget
 
 
 class TogaApp(toga.App):
@@ -66,7 +67,7 @@ class TogaApp(toga.App):
 
     ####################################################################
     # Methods
-    def say_hello(self, widget: object) -> None:
+    def say_hello(self, widget: Widget) -> None:
         """Get response from drf_project."""
         with httpx.Client() as client:
             response = client.get('http://127.0.0.1:8000/api/v1/hello')
@@ -78,7 +79,7 @@ class TogaApp(toga.App):
             message=payload.get('greeting'),
         )
 
-    def do_exercise(self, widget: object) -> None:
+    def do_exercise(self, widget: Widget) -> None:
         """Start exercise."""
         with httpx.Client() as client:
             response = client.get(
@@ -98,15 +99,16 @@ class TogaApp(toga.App):
             message=payload.get('question'),
         )
 
-    def goto_math_calc_exercise(self, widget: object) -> None:
+    def goto_math_calc_exercise(self, widget: Widget) -> None:
         """Go to math calc exercise window."""
         self.main_window.content = self.math_calc_exercise_box
 
-    def do_prev_content(self, widget: object) -> None:
+    def do_prev_content(self, widget: Widget) -> None:
         """Set into window content the main box."""
         self.main_window.content = self.main_box
+
     # End Methods
-    ##############
+    #############
 
 
 def main() -> toga.App:

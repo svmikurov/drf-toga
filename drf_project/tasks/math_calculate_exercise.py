@@ -9,8 +9,6 @@ MATH_CALCULATION_TYPE = (
     ('mul', 'Умножение'),
 )
 """Mathematical exercise type choice.
-
-Use in choices, note: max_length=10.
 """
 
 
@@ -45,12 +43,12 @@ class CalculationExercise:
     (`Dict[str, str]`).
     """
     question_text = None
-    """Еhe text representation of a mathematical expression to render to
-    the user (None | `str`).
+    """The text representation of a mathematical expression to render to
+    the user (`None` | `str`).
     """
     answer_text = None
     """The text representation of the result of calculating
-    a mathematical expression (None | `str`).
+    a mathematical expression (`None` | `str`).
     """
 
     def __init__(
@@ -74,7 +72,7 @@ class CalculationExercise:
             self.max_value,
         )
 
-    def _set_task_solution(  # noqa: D417
+    def _set_task_solution(
         self,
         calculation_type: str,
         min_value: int,
