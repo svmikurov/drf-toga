@@ -29,7 +29,7 @@ urlpatterns = [
         views.HelloAPIView.as_view(),
     ),
     path(
-        'api/v1/math-calc-exercise',
+        'api/v1/math-calc-exercise/',
         views.MathCalculateExerciseAPIView.as_view(),
     ),
 ]
