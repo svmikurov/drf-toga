@@ -3,6 +3,8 @@
 import operator
 from random import randint
 
+from tasks.task_abc import TaskABC
+
 MATH_CALCULATION_TYPE = (
     ('add', 'Сложение'),
     ('sub', 'Вычитание'),
@@ -12,7 +14,7 @@ MATH_CALCULATION_TYPE = (
 """
 
 
-class CalculationExercise:
+class CalculationExercise(TaskABC):
     """Calculation exercise class with two operands.
 
     Parameters
@@ -53,7 +55,6 @@ class CalculationExercise:
 
     def __init__(
         self,
-        *,
         calculation_type: str,
         min_value: int,
         max_value: int,
@@ -62,15 +63,18 @@ class CalculationExercise:
         self.calculation_type = calculation_type
         self.min_value = min_value
         self.max_value = max_value
-        self.__call__()
 
-    def __call__(self) -> None:
-        """Create task."""
+    def create_new_task(self) -> dict[str, str]:
+        """Create new task."""
         self._set_task_solution(
             self.calculation_type,
             self.min_value,
             self.max_value,
         )
+        task_data = {
+            'question': self.question_text,
+        }
+        return task_data
 
     def _set_task_solution(
         self,
@@ -79,6 +83,9 @@ class CalculationExercise:
         max_value: int,
     ) -> None:
         """Create and set question text with answer text.
+
+        This base logic to create task, for class API management use
+        other attributes.
 
         Parameters
         ----------

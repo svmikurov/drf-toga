@@ -1,9 +1,11 @@
 """Mathematical calculate exercise views module."""
+# ruff: noqa: I001
 
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from tasks.math_calculate_exercise import CalculationExercise
+
+from tasks.task_factory import TaskFactory
 
 CALCULATION_TYPE = 'mul'
 """Alias representation of mathematical operators (`str`).
@@ -20,18 +22,6 @@ class MathCalculateExerciseAPIView(APIView):
     """Mathematical calculate exercise view."""
 
     def get(self, request: Request) -> Response:
-        """Render the task.
-
-        :param request: Request parameters.
-        :return: The rendered data.
-        """
-        task = CalculationExercise(
-            calculation_type=CALCULATION_TYPE,
-            min_value=MIN_VALUE,
-            max_value=MAX_VALUE,
-        )
-        task_data = {
-            'question': task.question_text,
-        }
-
+        """Render the task question."""
+        task_data = TaskFactory.create_task('mul')
         return Response(task_data)
