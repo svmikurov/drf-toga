@@ -11,9 +11,9 @@ services:
     ports:
       - "8000:8000"
 
-  redis:
-    container_name: redis
-    image: redis
+  drf-toga-redis:
+    container_name: drf-toga-redis
+    image: drf-toga-redis
     build:
       context: .
       dockerfile: ./docker/redis/Dockerfile
