@@ -56,13 +56,13 @@ class CalculationExercise(TaskABC):
     def __init__(
         self,
         calculation_type: str,
-        min_value: int,
-        max_value: int,
+        min_value: int | str,
+        max_value: int | str,
     ) -> None:
         """Construct calculation exercise."""
         self.calculation_type = calculation_type
-        self.min_value = min_value
-        self.max_value = max_value
+        self.min_value = int(min_value)
+        self.max_value = int(max_value)
 
     def create_new_task(self) -> dict[str, str]:
         """Create new task."""

@@ -14,17 +14,18 @@ class TaskFactory:
     """Create task."""
 
     task_classes = {
-        'mul': CalculationExercise('mul', MIN_VALUE, MAX_VALUE),
+        'math': CalculationExercise,
     }
 
     @staticmethod
-    def create_task(task_type: str) -> dict[str, str]:
+    def create_task(task_params: dict[str, str]) -> dict[str, str]:
         """Create task and return question text.
 
-        :param task_type: Task name type (`str`).
+        :param task_params: Task parameters (`dict[str, str]`).
         :return task_data: Task data to render for user
         (`dict[str, str]`).
         """
-        task = TaskFactory.task_classes[task_type]
+        task_type = task_params.pop('task_type')
+        task = TaskFactory.task_classes[task_type](**task_params)
         task_data = task.create_new_task()
         return task_data
