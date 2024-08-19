@@ -1,4 +1,18 @@
 COMPOSE := docker compose
+DRF_APP := @$(COMPOSE) exec drf-project
+MANAGE := @$(DRF_APP) python manage.py
+
+
+# Django
+
+makemigrations:
+	@$(MANAGE) makemigrations
+
+dry-run:
+	@$(MANAGE) makemigrations --dry-run
+
+migrate:
+	@$(MANAGE) migrate
 
 # Docker
 build:
