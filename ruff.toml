@@ -6,6 +6,7 @@ exclude = [
     ".venv_drf_toga/*",
     "docker/*",
     "__init__.py",
+    "*/migrations/*",
 ]
 line-length = 79
 
