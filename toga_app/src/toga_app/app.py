@@ -5,6 +5,13 @@ import toga
 from toga.style import Pack
 from toga.widgets.base import Widget
 
+MIN_VALUE = 1
+"""Minimum operand value of mathematical task (`int`).
+"""
+MAX_VALUE = 9
+"""Maximum operand value of mathematical task (`int`).
+"""
+
 
 class TogaApp(toga.App):
     """Simple Toga application."""
@@ -82,8 +89,14 @@ class TogaApp(toga.App):
     def do_exercise(self, widget: Widget) -> None:
         """Start exercise."""
         with httpx.Client() as client:
-            response = client.get(
-                'http://127.0.0.1:8000/api/v1/math-calc-exercise'
+            response = client.post(
+                'http://127.0.0.1:8000/api/v1/math-calc-exercise/',
+                params={
+                    'task_type': 'math',
+                    'calculation_type': 'mul',
+                    'min_value': 1,
+                    'max_value': 9,
+                },
             )
 
         if response.status_code == 404:
