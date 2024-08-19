@@ -32,4 +32,8 @@ urlpatterns = [
         'api/v1/math-calc-exercise/',
         views.MathCalculateExerciseAPIView.as_view(),
     ),
+    path(
+        'api/v1/words/list/',
+        views.WordListAPIView.as_view(),
+    ),
 ]
