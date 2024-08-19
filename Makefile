@@ -10,7 +10,10 @@ up:
 down:
 	@$(COMPOSE) down
 
-rebuild: down build up
+rebuild-drf-project:
+	@$(COMPOSE) down drf-project && \
+	$(COMPOSE) build drf-project && \
+	$(COMPOSE) up drf-project -d
 
 # Linter
 ruff:
