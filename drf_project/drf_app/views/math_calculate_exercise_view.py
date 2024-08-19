@@ -7,21 +7,12 @@ from rest_framework.views import APIView
 
 from tasks.task_factory import TaskFactory
 
-CALCULATION_TYPE = 'mul'
-"""Alias representation of mathematical operators (`str`).
-"""
-MIN_VALUE = 1
-"""Minimum operand value of mathematical task (`int`).
-"""
-MAX_VALUE = 9
-"""Maximum operand value of mathematical task (`int`).
-"""
-
 
 class MathCalculateExerciseAPIView(APIView):
     """Mathematical calculate exercise view."""
 
-    def get(self, request: Request) -> Response:
+    def post(self, request: Request, **kwargs: object) -> Response:
         """Render the task question."""
-        task_data = TaskFactory.create_task('mul')
+        task_params: dict = request.query_params.dict()
+        task_data = TaskFactory.create_task(task_params)
         return Response(task_data)
