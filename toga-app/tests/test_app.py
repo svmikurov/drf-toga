@@ -1,3 +1,6 @@
-def test_first():
+"""Test toga_app module."""
+
+
+def test_first() -> None:
     """An initial test for the app."""
-    assert 1 + 1 == 2
+    assert 1 + 1 == 2  # noqa: W292
