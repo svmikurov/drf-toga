@@ -1,5 +1,3 @@
-"""Test toga_app module."""
-
 import os
 import sys
 import tempfile
@@ -8,8 +6,7 @@ from pathlib import Path
 import pytest
 
 
-def run_tests() -> None:
-    """Run test."""
+def run_tests():
     project_path = Path(__file__).parent.parent
     os.chdir(project_path)
 
@@ -17,23 +14,22 @@ def run_tests() -> None:
     # default to running the whole test suite.
     args = sys.argv[1:]
     if len(args) == 0:
-        args = ['tests']
+        args = ["tests"]
 
     returncode = pytest.main(
         [
             # Turn up verbosity
-            '-vv',
+            "-vv",
             # Disable color
-            '--color=no',
+            "--color=no",
             # Overwrite the cache directory to somewhere writable
-            '-o',
-            f'cache_dir={tempfile.gettempdir()}/.pytest_cache',
-        ]
-        + args
+            "-o",
+            f"cache_dir={tempfile.gettempdir()}/.pytest_cache",
+        ] + args
     )
 
-    print(f'>>>>>>>>>> EXIT {returncode} <<<<<<<<<<')
+    print(f">>>>>>>>>> EXIT {returncode} <<<<<<<<<<")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run_tests()
