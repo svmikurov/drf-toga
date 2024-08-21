@@ -11,8 +11,9 @@ class WordListAPIView(APIView):
     def get(self, request: Request) -> Response:
         """Render English-Russian word list."""
         return Response(
-            {
-                'black': 'черный',
-                'blue': 'синий',
-            }
+            [
+                {'eng_word': 'black', 'rus_word': 'черный'},
+                {'eng_word': 'red', 'rus_word': 'красный'},
+                {'eng_word': 'blue', 'rus_word': 'синий'},
+            ]
         )
