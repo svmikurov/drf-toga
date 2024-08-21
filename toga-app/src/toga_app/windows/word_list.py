@@ -22,16 +22,15 @@ class WordListWindow(BaseWindow):
         """Construct the Word List window."""
         super().startup()
 
-        # Style
-        table_style = Pack(
-            padding=(14, 7, 0, 7),
-        )
-
         # Table
         self.word_list_table = toga.Table(
             headings=['English word', 'English word'],
             accessors=['eng_word', 'rus_word'],
-            style=table_style,
+            style=Pack(
+                padding=(14, 7, 7, 7),
+                flex=1, # fill the remaining space with a table
+                font_style="italic",
+            ),
         )
 
         # Fill Word List box
