@@ -21,6 +21,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from drf_app import views
+from drf_app.views import drf_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,6 +35,7 @@ urlpatterns = [
     ),
     path(
         'api/v1/words/list/',
-        views.WordListAPIView.as_view(),
+        # views.WordListAPIView.as_view(),
+        drf_views.WordListAPIView.as_view(),
     ),
 ]
