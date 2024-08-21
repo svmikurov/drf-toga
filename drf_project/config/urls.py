@@ -31,7 +31,6 @@ urlpatterns = [
     ),
     path(
         'api/v1/words/list/',
-        # views.WordListAPIView.as_view(),
-        drf_views.WordListAPIView.as_view(),
+        views.WordListAPIView.as_view(),
     ),
 ]
