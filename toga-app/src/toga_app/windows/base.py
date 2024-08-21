@@ -28,7 +28,7 @@ class BaseWindow:
 
     @property
     def btn_goto_main_window(self) -> toga.Button:
-        """Button to switch to the Main window."""
+        """Button to switch to Main window (read-only)."""
         return toga.Button(
             text='Главное окно',
             on_press=self.goto_main_window,
