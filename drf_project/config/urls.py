@@ -26,10 +26,6 @@ from drf_app.views import drf_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(
-        'api/v1/hello',
-        views.HelloAPIView.as_view(),
-    ),
-    path(
         'api/v1/math-calc-exercise/',
         views.MathCalculateExerciseAPIView.as_view(),
     ),
