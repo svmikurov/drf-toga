@@ -2,6 +2,7 @@
 
 import toga
 
+from toga_app.windows.base import BaseWindow
 from toga_app.windows.mathematical import MathematicalWindow
 from toga_app.windows.word_list import WordListWindow
 
@@ -9,14 +10,21 @@ from toga_app.windows.word_list import WordListWindow
 class TogaApp(
     WordListWindow,
     MathematicalWindow,
+    BaseWindow,
+    toga.App,
 ):
     """Simple Toga application."""
 
     def startup(self) -> None:
         """Construct Main window consider other windows."""
         super().startup()
-        self.main_box.add(self.btn_switch_word_list_window)
-        self.main_box.add(self.btn_switch_math_window)
+
+        self.main_box = toga.Box(style=self.main_style)
+        self.main_box.add(self.btn_goto_word_list_window)
+        self.main_box.add(self.btn_goto_math_window)
+
+        self.main_window.content = self.main_box
+        self.main_window.show()
 
 
 def main() -> toga.App:
