@@ -9,7 +9,7 @@ class WordSerializer(serializers.ModelSerializer):
     """Word model serializer."""
 
     class Meta:
-        """Construct response."""
+        """Serializer configure."""
 
         model = Word
         fields = ('pk', 'eng_word', 'rus_word')
