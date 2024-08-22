@@ -8,19 +8,6 @@ from toga_app.boxes.main import MainBox
 from toga_app.boxes.words import WordsBox
 
 
-# class BoxFactory:
-#
-#     box_classes = {
-#         'main_box': MainBox,
-#         'words_box': WordsBox,
-#     }
-#
-#     @classmethod
-#     def create_box(cls, box_class):
-#         if box_class in cls.box_classes:
-#             return cls.box_classes[box_class]()
-
-
 class TogaApp(toga.App):
     """Simple Toga application."""
 

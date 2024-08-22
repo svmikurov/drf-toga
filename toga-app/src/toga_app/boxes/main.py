@@ -5,6 +5,7 @@ from toga.style import Pack
 from travertino.constants import COLUMN
 
 from toga_app.boxes.base import BaseBox
+from toga_app.boxes.components.line import LineBox
 
 
 class MainBox(BaseBox):
@@ -21,7 +22,11 @@ class MainBox(BaseBox):
         return BaseBox(
             style=Pack(flex=1, direction=COLUMN),
             children=[
-                toga.Label(text='Добро пожаловать в приложение!'),
+                LineBox(
+                    children=[
+                        toga.Label(text='Добро пожаловать в приложение!'),
+                    ]
+                ),
                 toga.Button(
                     'Англо-Русский словарь',
                     on_press=lambda _: self.move_buttons['words_box'](),
