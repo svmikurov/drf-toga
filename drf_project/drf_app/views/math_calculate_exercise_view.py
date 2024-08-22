@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from tasks.task_factory import TaskFactory
 
 
-class MathCalculateExerciseAPIView(APIView):
+class MathCalcExerciseAPIView(APIView):
     """Mathematical calculate exercise view."""
 
     def post(self, request: Request, **kwargs: object) -> Response:
