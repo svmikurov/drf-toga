@@ -3,17 +3,17 @@
 import toga
 from toga.style import Pack
 
-from toga_app.boxes.base import BaseBox
-from toga_app.boxes.main import MainBox
-from toga_app.boxes.words import WordsBox
+from toga_app import boxes
 from toga_app.consts import MAIN_WINDOW_SIZE
 
 
 class TogaApp(toga.App):
     """Simple Toga application."""
 
-    main_box: MainBox
-    words_box: BaseBox
+    main_box: boxes.MainBox
+    words_box: boxes.BaseBox
+    create_word_box: boxes.BaseBox
+
     main_window: toga.Window
     move_buttons: dict
 
@@ -22,12 +22,14 @@ class TogaApp(toga.App):
     def startup(self) -> None:
         """Construct Main window consider other windows."""
         box_classes = {
-            'main_box': MainBox,
-            'words_box': WordsBox,
+            'main_box': boxes.MainBox,
+            'words_box': boxes.WordsBox,
+            'create_word_box': boxes.CreateWordBox,
         }
         move_buttons = {
             'main_box': self.on_main,
             'words_box': self.on_words,
+            'create_word_box': self.on_create_word_box,
         }
         # Create Box instants.
         for key, value in box_classes.items():
@@ -47,7 +49,11 @@ class TogaApp(toga.App):
         """Move to welcome box."""
         self.set_main_window_content(self.words_box)
 
-    def set_main_window_content(self, box: BaseBox):
+    def on_create_word_box(self):
+        """Move to welcome box."""
+        self.set_main_window_content(self.create_word_box)
+
+    def set_main_window_content(self, box: boxes.BaseBox):
         """Set the content of the window as the given box."""
         self.main_window.content = box
 

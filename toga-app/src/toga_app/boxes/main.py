@@ -31,6 +31,10 @@ class MainBox(BaseBox):
                 toga.Button(
                     'Англо-Русский словарь',
                     on_press=lambda _: self.move_buttons['words_box'](),
+                ),
+                toga.Button(
+                    text='Добавить слово',
+                    on_press=lambda _: self.move_buttons['create_word_box'](),
                 )
             ],
         )
