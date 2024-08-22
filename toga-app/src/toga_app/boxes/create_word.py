@@ -1,46 +1,38 @@
-from urllib.parse import urljoin
-
 import toga
-from toga.style import Pack
-from travertino.constants import COLUMN
+from toga import TextInput
 
 from toga_app.boxes.base import BaseBox
-from toga_app.contrib.http_requests import send_post_request
+from toga_app.boxes.components.labels import BoxHeading
+from toga_app.move_btns import Buttons
 
 HOST_API = 'http://127.0.0.1:8000/api/v1/'
 URL_PATH = 'words/list/'
 
 
-class CreateWordBox(BaseBox):
+class CreateWordBox(Buttons, BaseBox):
 
-    def __init__(self, move_buttons: dict) -> None:
+    box_heading = BoxHeading(
+        text='Добавление слова',
+    )
+
+    def __init__(self, move_btn_callbacks: dict) -> None:
         super().__init__()
-        self.move_buttons = move_buttons
-        self.style = Pack(flex=1, direction=COLUMN)
+        self.move_btn_callbacks = move_btn_callbacks
 
-        eng_word_label = toga.Label(text='Введите слово на английском')
-        self.eng_word_input = toga.TextInput()
-        rus_word_label = toga.Label(text='Введите слово на русском')
-        self.rus_word_input = toga.TextInput()
+        self.eng_word_input = TextInput(placeholder='Слово на английском')
+        self.rus_word_input = TextInput(placeholder='Слово на русском')
 
         self.btn_submit = toga.Button(
             text='Добавить',
             on_press=self.create_word_handler,
         )
-        self.btn_move_main_box = toga.Button(
-            'На главную',
-            on_press=lambda _: self.move_buttons['main_box'](),
-        )
-        self.btn_move_words_box = toga.Button(
-            'Англо-Русский словарь',
-            on_press=lambda _: self.move_buttons['words_box'](),
-        )
 
         self.add(
+            self.box_heading,
             self.btn_move_main_box,
             self.btn_move_words_box,
-            eng_word_label, self.eng_word_input,
-            rus_word_label, self.rus_word_input,
+            self.eng_word_input,
+            self.rus_word_input,
             self.btn_submit
         )
 

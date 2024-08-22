@@ -1,30 +1,19 @@
-
-import toga
-from toga.style import Pack
-from travertino.constants import COLUMN
-
 from toga_app.boxes.base import BaseBox
-from toga_app.boxes.components.line import LineBox
+from toga_app.boxes.components.labels import BoxHeading
+from toga_app.move_btns import Buttons
 
 
-class WordsBox(BaseBox):
+class WordsBox(Buttons, BaseBox):
 
-    def __init__(self, move_buttons: dict) -> None:
+    box_heading = BoxHeading(
+        text='Англо-Русский словарь',
+    )
+
+    def __init__(self, move_btn_callbacks: dict) -> None:
         super().__init__()
-        self.move_buttons = move_buttons
-        self.style = Pack(flex=1, direction=COLUMN)
+        self.move_btn_callbacks = move_btn_callbacks
 
-        box_label = toga.Box(
-            children=[
-                toga.Label(
-                    style=Pack(padding=(7, 7, 7, 7)),
-                    text='Англо-Русский словарь',
-                )
-            ]
+        self.add(
+            self.box_heading,
+            self.btn_move_main_box,
         )
-        move_main_box_btn = toga.Button(
-            'На главную',
-            on_press=lambda _: self.move_buttons['main_box'](),
-        )
-
-        self.add(box_label, move_main_box_btn)

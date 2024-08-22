@@ -1,6 +1,8 @@
 """Application Base Box."""
 
 import toga
+from toga.style import Pack
+from travertino.constants import COLUMN
 
 
 class BaseBox(toga.Box):
@@ -9,3 +11,4 @@ class BaseBox(toga.Box):
     def __init__(self, *args, **kwargs) -> None:
         """Initialize box."""
         super().__init__(*args, **kwargs)
+        self.style = Pack(flex=1, direction=COLUMN)
