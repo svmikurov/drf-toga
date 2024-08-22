@@ -26,11 +26,12 @@ from drf_app.views import drf_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(
-        'api/v1/math-calc-exercise/',
-        views.MathCalculateExerciseAPIView.as_view(),
+        'api/v1/math-calc-exercise/', views.MathCalcExerciseAPIView.as_view()
     ),
     path(
-        'api/v1/words/list/',
-        views.WordListAPIView.as_view(),
+        'api/v1/words/list/', drf_views.WordListCreateAPIView.as_view()
+    ),
+    path(
+        'api/v1/words/delete/<int:pk>/', drf_views.DeleteWordAPIView.as_view()
     ),
 ]

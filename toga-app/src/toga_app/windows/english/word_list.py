@@ -28,14 +28,15 @@ class WordListWindow(BaseWindow):
             accessors=['eng_word', 'rus_word'],
             style=Pack(
                 padding=(14, 7, 7, 7),
-                flex=1, # fill the remaining space with a table
-                font_style="italic",
+                flex=1,  # fill the remaining space with a table
+                font_style='italic',
             ),
         )
 
         # Fill Word List box
         self.word_list_box = toga.Box(style=self.main_style)
         self.word_list_box.add(self.btn_goto_main_window)
+        self.word_list_box.add(self.btn_create_word)
         self.word_list_box.add(self.btn_get_word_list_data)
         self.word_list_box.add(self.btn_clear_word_list_table)
         self.word_list_box.add(self.word_list_table)
@@ -64,6 +65,14 @@ class WordListWindow(BaseWindow):
         """Clean Word List table."""
         self.word_list_table.data.clear()
 
+    def create_word(
+        self,
+        widget: toga.Widget,
+        **kwargs: object,
+    ) -> None:
+        """Add word to English-Russian dictionary."""
+        pass
+
     ####################################################################
     # buttons
     @property
@@ -88,4 +97,12 @@ class WordListWindow(BaseWindow):
         return toga.Button(
             text='Очистить список слов',
             on_press=self.clear_word_list_table_handler,
+        )
+
+    @property
+    def btn_create_word(self) -> toga.Button:
+        """Add word to English-Russian dictionary button."""
+        return toga.Button(
+            text='Добавить слово',
+            on_press=self.create_word,
         )
