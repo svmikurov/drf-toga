@@ -16,6 +16,7 @@ def send_post_request(url: str, data: dict) -> str:
         response = client.post(url, json=data)
     return str(response.json())
 
+
 def send_delete_request(url: str) -> str:
     """Send a `DELETE` request."""
     with httpx.Client() as client:

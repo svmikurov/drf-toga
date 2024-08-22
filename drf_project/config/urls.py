@@ -28,9 +28,7 @@ urlpatterns = [
     path(
         'api/v1/math-calc-exercise/', views.MathCalcExerciseAPIView.as_view()
     ),
-    path(
-        'api/v1/words/list/', drf_views.WordListCreateAPIView.as_view()
-    ),
+    path('api/v1/words/list/', drf_views.WordListCreateAPIView.as_view()),
     path(
         'api/v1/words/delete/<int:pk>/', drf_views.DeleteWordAPIView.as_view()
     ),
