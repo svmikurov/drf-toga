@@ -3,22 +3,21 @@
 import httpx
 
 
-def get_http_response(url: str) -> list[dict]:
-    """Get http response."""
+def send_get_request(url: str) -> list[dict]:
+    """Send a `GET` request."""
     with httpx.Client() as client:
         response = client.get(url=url)
-    payload = response.json()
-    return payload
+    return response.json()
 
 
 def send_post_request(url: str, data: dict) -> str:
     """Send a `POST` request."""
-    response = httpx.post(url, json=data)
-    response.close()
+    with httpx.Client() as client:
+        response = client.post(url, json=data)
     return str(response.json())
 
 def send_delete_request(url: str) -> str:
     """Send a `DELETE` request."""
-    response = httpx.delete(url)
-    response.close()
+    with httpx.Client() as client:
+        response = client.delete(url)
     return str(response)

@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 import toga
 from toga.style import Pack
 
-from toga_app.contrib.http_requests import get_http_response, \
+from toga_app.contrib.http_requests import send_get_request, \
     send_delete_request
 from toga_app.windows.base import BaseWindow
 
@@ -51,7 +51,7 @@ class WordListWindow(BaseWindow):
     @property
     def word_list_data(self) -> list[dict]:
         """Word list."""
-        return get_http_response(urljoin(HOST_API, LIST_PATH))
+        return send_get_request(urljoin(HOST_API, LIST_PATH))
 
     def goto_word_list_window(self, widget: toga.Widget) -> None:
         """Switch to Word List window."""
