@@ -5,7 +5,7 @@ from enum import IntEnum
 from toga.fonts import SYSTEM_DEFAULT_FONT_SIZE
 from toga.style.pack import MONOSPACE
 
-MAIN_WINDOW_SIZE = (1000, 500)
+MAIN_WINDOW_SIZE = (300, 500)
 
 SMALL_PADDING = 7
 
@@ -33,7 +33,7 @@ class FontSize(IntEnum):
             return 15
         return SYSTEM_DEFAULT_FONT_SIZE
 
-    def get_button_height(self) -> None:
+    def get_button_height(self) -> int | None:
         """Get the height of button, related to font size."""
         if self == FontSize.SMALL:
             return 25

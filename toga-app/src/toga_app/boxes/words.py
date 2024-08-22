@@ -14,9 +14,12 @@ class WordsBox(BaseBox):
         self.move_buttons = move_buttons
         self.style = Pack(flex=1, direction=COLUMN)
 
-        box_label = LineBox(
+        box_label = toga.Box(
             children=[
-                toga.Label('Англо-Русский словарь'),
+                toga.Label(
+                    style=Pack(padding=(7, 7, 7, 7)),
+                    text='Англо-Русский словарь',
+                )
             ]
         )
         move_main_box_btn = toga.Button(

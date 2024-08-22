@@ -1,8 +1,10 @@
 """Application Main Box"""
 
 import toga
+from docutils.parsers.rst.directives.tables import align
+from pygments.lexers import find_lexer_class
 from toga.style import Pack
-from travertino.constants import COLUMN
+from travertino.constants import COLUMN, ROW
 
 from toga_app.boxes.base import BaseBox
 from toga_app.boxes.components.line import LineBox
@@ -22,10 +24,9 @@ class MainBox(BaseBox):
         return BaseBox(
             style=Pack(flex=1, direction=COLUMN),
             children=[
-                LineBox(
-                    children=[
-                        toga.Label(text='Добро пожаловать в приложение!'),
-                    ]
+                toga.Label(
+                    style=Pack(padding=(7, 7, 7, 7)),
+                    text='Добро пожаловать в приложение!'
                 ),
                 toga.Button(
                     'Англо-Русский словарь',

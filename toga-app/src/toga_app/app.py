@@ -6,6 +6,7 @@ from toga.style import Pack
 from toga_app.boxes.base import BaseBox
 from toga_app.boxes.main import MainBox
 from toga_app.boxes.words import WordsBox
+from toga_app.consts import MAIN_WINDOW_SIZE
 
 
 class TogaApp(toga.App):
@@ -32,7 +33,9 @@ class TogaApp(toga.App):
         for key, value in box_classes.items():
             setattr(self, key, value(move_buttons))
 
-        self.main_window = toga.MainWindow()
+        self.main_window = toga.MainWindow(
+            size=MAIN_WINDOW_SIZE,
+        )
         self.main_window.content = self.main_box
         self.main_window.show()
 
