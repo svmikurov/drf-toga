@@ -3,13 +3,15 @@
 import toga
 
 from toga_app.windows.base import BaseWindow
+from toga_app.windows.english.word_create import CreateWordWindow
+from toga_app.windows.english.word_list import WordListWindow
 from toga_app.windows.mathematical import MathematicalWindow
-from toga_app.windows.word_list import WordListWindow
 
 
 class TogaApp(
     WordListWindow,
     MathematicalWindow,
+    CreateWordWindow,
     BaseWindow,
     toga.App,
 ):

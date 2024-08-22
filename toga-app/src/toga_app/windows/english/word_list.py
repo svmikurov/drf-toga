@@ -17,6 +17,7 @@ class WordListWindow(BaseWindow):
 
     word_list_box: toga.Box
     word_list_table: toga.Table
+    btn_goto_create_word_window: toga.Button
 
     def startup(self) -> None:
         """Construct the Word List window."""
@@ -34,15 +35,25 @@ class WordListWindow(BaseWindow):
         )
 
         # Fill Word List box
-        self.word_list_box = toga.Box(style=self.main_style)
-        self.word_list_box.add(self.btn_goto_main_window)
-        self.word_list_box.add(self.btn_create_word)
-        self.word_list_box.add(self.btn_get_word_list_data)
-        self.word_list_box.add(self.btn_clear_word_list_table)
-        self.word_list_box.add(self.word_list_table)
+        self.word_list_box = toga.Box(
+            style=self.main_style,
+            children=[
+                self.btn_goto_main_window,
+                self.btn_goto_create_word_window,
+                self.btn_get_word_list_data,
+                self.btn_clear_word_list_table,
+                self.word_list_table,
+            ]
+        )
+
+    @property
+    def word_list_data(self) -> list[dict]:
+        """Word list."""
+        return get_http_response(urljoin(HOST_API, URL_PATH))
 
     def goto_word_list_window(self, widget: toga.Widget) -> None:
         """Switch to Word List window."""
+        self.word_list_table.data = self.word_list_data
         self.main_window.content = self.word_list_box
 
     ####################################################################
@@ -53,9 +64,7 @@ class WordListWindow(BaseWindow):
         **kwargs: object,
     ) -> None:
         """Fill Word List table."""
-        self.word_list_table.data = get_http_response(
-            urljoin(HOST_API, URL_PATH),
-        )
+        self.word_list_table.data = self.word_list_data
 
     def clear_word_list_table_handler(
         self,
@@ -64,14 +73,6 @@ class WordListWindow(BaseWindow):
     ) -> None:
         """Clean Word List table."""
         self.word_list_table.data.clear()
-
-    def create_word(
-        self,
-        widget: toga.Widget,
-        **kwargs: object,
-    ) -> None:
-        """Add word to English-Russian dictionary."""
-        pass
 
     ####################################################################
     # buttons
@@ -97,12 +98,4 @@ class WordListWindow(BaseWindow):
         return toga.Button(
             text='Очистить список слов',
             on_press=self.clear_word_list_table_handler,
-        )
-
-    @property
-    def btn_create_word(self) -> toga.Button:
-        """Add word to English-Russian dictionary button."""
-        return toga.Button(
-            text='Добавить слово',
-            on_press=self.create_word,
         )
