@@ -12,7 +12,13 @@ def get_http_response(url: str) -> list[dict]:
 
 
 def send_post_request(url: str, data: dict) -> str:
-    """Send a `POST` request.."""
+    """Send a `POST` request."""
     response = httpx.post(url, json=data)
     response.close()
     return str(response.json())
+
+def send_delete_request(url: str) -> str:
+    """Send a `DELETE` request."""
+    response = httpx.delete(url)
+    response.close()
+    return str(response)
