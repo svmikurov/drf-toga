@@ -5,11 +5,12 @@ from urllib.parse import urljoin
 import toga
 from toga.style import Pack
 
-from toga_app.contrib.http_requests import get_http_response
+from toga_app.contrib.http_requests import get_http_response, \
+    send_delete_request
 from toga_app.windows.base import BaseWindow
 
 HOST_API = 'http://127.0.0.1:8000/api/v1/'
-URL_PATH = 'words/list/'
+LIST_PATH = 'words/list/'
 
 
 class WordListWindow(BaseWindow):
@@ -40,6 +41,7 @@ class WordListWindow(BaseWindow):
             children=[
                 self.btn_goto_main_window,
                 self.btn_goto_create_word_window,
+                self.btn_delete_word,
                 self.btn_get_word_list_data,
                 self.btn_clear_word_list_table,
                 self.word_list_table,
@@ -49,7 +51,7 @@ class WordListWindow(BaseWindow):
     @property
     def word_list_data(self) -> list[dict]:
         """Word list."""
-        return get_http_response(urljoin(HOST_API, URL_PATH))
+        return get_http_response(urljoin(HOST_API, LIST_PATH))
 
     def goto_word_list_window(self, widget: toga.Widget) -> None:
         """Switch to Word List window."""
@@ -73,6 +75,21 @@ class WordListWindow(BaseWindow):
     ) -> None:
         """Clean Word List table."""
         self.word_list_table.data.clear()
+
+    def delete_handler(self, widget, **kwargs):
+        if self.word_list_table.selection:
+            # self.word_list_table.data.remove(self.word_list_table.selection)
+            pk = self.word_list_table.selection.pk
+            response = send_delete_request(
+                url=urljoin(HOST_API, f'words/delete/{pk}/')
+            )
+            self.main_window.info_dialog(
+                title='Результат отправки запроса',
+                message=response,
+            )
+            self.word_list_table.data = self.word_list_data
+        else:
+            print('Выберите слово!')
 
     ####################################################################
     # buttons
@@ -98,4 +115,12 @@ class WordListWindow(BaseWindow):
         return toga.Button(
             text='Очистить список слов',
             on_press=self.clear_word_list_table_handler,
+        )
+
+    @property
+    def btn_delete_word(self) -> toga.Button:
+        """Button to delete word."""
+        return toga.Button(
+            text='Удалить слово',
+            on_press=self.delete_handler,
         )
