@@ -12,4 +12,4 @@ class WordSerializer(serializers.ModelSerializer):
         """Construct response."""
 
         model = Word
-        fields = ('eng_word', 'rus_word')
+        fields = ('pk', 'eng_word', 'rus_word')
