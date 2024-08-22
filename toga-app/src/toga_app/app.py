@@ -33,16 +33,19 @@ class TogaApp(toga.App):
 
     def startup(self) -> None:
         """Construct Main window consider other windows."""
-        self.move_buttons = {
+        box_classes = {
+            'main_box': MainBox,
+            'words_box': WordsBox,
+        }
+        move_buttons = {
             'main_box': self.on_main,
             'words_box': self.on_words,
         }
+        # Create Box instants.
+        for key, value in box_classes.items():
+            setattr(self, key, value(move_buttons))
 
         self.main_window = toga.MainWindow()
-
-        self.main_box = MainBox(self.move_buttons)
-        self.words_box = WordsBox(self.move_buttons)
-
         self.main_window.content = self.main_box
         self.main_window.show()
 
@@ -58,6 +61,8 @@ class TogaApp(toga.App):
         """Set the content of the window as the given box."""
         self.main_window.content = box
 
+    def apply_method(self, box_instance):
+        return lambda: self.set_main_window_content(box_instance)
 
 def main() -> toga.App:
     """Return Toga app."""
