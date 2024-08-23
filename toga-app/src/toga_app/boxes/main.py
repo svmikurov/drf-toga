@@ -3,21 +3,18 @@
 from toga_app.boxes.base import BaseBox
 from toga_app.boxes.styled import BoxHeading
 
-from toga_app.move_btns import Buttons
 
-
-class MainBox(Buttons, BaseBox):
+class MainBox(BaseBox):
     """Class representing the main box of the application."""
 
     box_heading = BoxHeading(text='Добро пожаловать в приложение!')
 
-    def __init__(self, move_btn_callbacks: dict) -> None:
-        """Construct Main box"""
+    def __init__(self, move_btns) -> None:
         super().__init__()
-        self.move_btn_callbacks = move_btn_callbacks
+        self.move_btns = move_btns
 
         self.add(
             self.box_heading,
-            self.btn_move_words_box,
-            self.btn_move_create_word_box,
+            self.move_btns.btn_move_words_box,
+            self.move_btns.btn_move_create_word_box,
         )

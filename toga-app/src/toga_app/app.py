@@ -4,6 +4,13 @@ import toga
 
 from toga_app import boxes
 from toga_app.consts import MAIN_WINDOW_SIZE
+from toga_app.move_btns import Buttons
+
+BOX_CLASSES = {
+    'main_box': boxes.MainBox,
+    'words_box': boxes.WordsBox,
+    'create_word_box': boxes.CreateWordBox,
+}
 
 
 class TogaApp(toga.App):
@@ -12,25 +19,22 @@ class TogaApp(toga.App):
     main_box: boxes.MainBox
     words_box: boxes.BaseBox
     create_word_box: boxes.BaseBox
-    main_window: toga.Window
+    move_btns: Buttons
 
-    BOX_CLASSES = {
-        'main_box': boxes.MainBox,
-        'words_box': boxes.WordsBox,
-        'create_word_box': boxes.CreateWordBox,
-    }
+    def __init__(self):
+        super().__init__()
+        self.move_btn_callbacks = {
+            'main_box': self.to_main_box,
+            'words_box': self.to_words_box,
+            'create_word_box': self.to_create_word_box,
+        }
+        self.move_btns = Buttons(self.move_btn_callbacks)
 
     def startup(self) -> None:
         """Construct Main window consider other windows."""
-        move_btn_callbacks = {
-            'main_box': self.on_main,
-            'words_box': self.on_words,
-            'create_word_box': self.on_create_word_box,
-        }
-
         # Create Box instants.
-        for instant_name, box_class in self.BOX_CLASSES.items():
-            setattr(self, instant_name, box_class(move_btn_callbacks))
+        for instant_name, box_class in BOX_CLASSES.items():
+            setattr(self, instant_name, box_class(self.move_btns))
 
         self.main_window = toga.MainWindow(size=MAIN_WINDOW_SIZE)
         self.main_window.content = self.main_box
@@ -38,15 +42,15 @@ class TogaApp(toga.App):
 
     ####################################################################
     # Button callback functions
-    def on_main(self):
+    def to_main_box(self):
         """Move to Main box."""
         self.set_main_window_content(self.main_box)
 
-    def on_words(self):
+    def to_words_box(self):
         """Move to Words box."""
         self.set_main_window_content(self.words_box)
 
-    def on_create_word_box(self):
+    def to_create_word_box(self):
         """Move to Create Word box."""
         self.set_main_window_content(self.create_word_box)
         # End Button callback functions

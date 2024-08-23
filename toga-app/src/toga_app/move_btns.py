@@ -4,6 +4,9 @@ class Buttons:
 
     move_btn_callbacks: dict
 
+    def __init__(self, move_btn_callbacks):
+        self.move_btn_callbacks = move_btn_callbacks
+
     @property
     def btn_move_main_box(self):
         return StyledButton(
