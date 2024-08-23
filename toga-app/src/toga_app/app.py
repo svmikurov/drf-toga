@@ -29,8 +29,8 @@ class TogaApp(toga.App):
         }
 
         # Create Box instants.
-        for key, value in self.BOX_CLASSES.items():
-            setattr(self, key, value(move_btn_callbacks))
+        for instant_name, box_class in self.BOX_CLASSES.items():
+            setattr(self, instant_name, box_class(move_btn_callbacks))
 
         self.main_window = toga.MainWindow(size=MAIN_WINDOW_SIZE)
         self.main_window.content = self.main_box

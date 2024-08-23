@@ -7,7 +7,7 @@ from toga.style.pack import MONOSPACE
 
 MAIN_WINDOW_SIZE = (300, 500)
 
-SMALL_PADDING = 7
+SMALL_PADDING = 2
 
 LINE_HEIGHT = 30
 

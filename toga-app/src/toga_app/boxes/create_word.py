@@ -1,8 +1,8 @@
 import toga
-from toga import TextInput
 
 from toga_app.boxes.base import BaseBox
-from toga_app.boxes.components.labels import BoxHeading
+
+from toga_app.boxes.styled import StyledTextInput, StyledButton, BoxHeading
 from toga_app.move_btns import Buttons
 
 HOST_API = 'http://127.0.0.1:8000/api/v1/'
@@ -11,20 +11,17 @@ URL_PATH = 'words/list/'
 
 class CreateWordBox(Buttons, BaseBox):
 
-    box_heading = BoxHeading(
-        text='Добавление слова',
-    )
+    box_heading = BoxHeading(text='Добавление слова')
 
     def __init__(self, move_btn_callbacks: dict) -> None:
         super().__init__()
         self.move_btn_callbacks = move_btn_callbacks
 
-        self.eng_word_input = TextInput(placeholder='Слово на английском')
-        self.rus_word_input = TextInput(placeholder='Слово на русском')
+        self.eng_word_input = StyledTextInput(placeholder='Слово на английском')  # noqa: E501
+        self.rus_word_input = StyledTextInput(placeholder='Слово на русском')
 
-        self.btn_submit = toga.Button(
-            text='Добавить',
-            on_press=self.create_word_handler,
+        self.btn_submit = StyledButton(
+            text='Добавить', on_press=self.create_word_handler
         )
 
         self.add(

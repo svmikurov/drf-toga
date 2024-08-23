@@ -1,5 +1,4 @@
-import toga
-
+from toga_app.boxes.styled import StyledButton
 
 class Buttons:
 
@@ -7,21 +6,21 @@ class Buttons:
 
     @property
     def btn_move_main_box(self):
-        return toga.Button(
+        return StyledButton(
         'На главную',
         on_press=lambda _: self.move_btn_callbacks['main_box'](),
     )
 
     @property
     def btn_move_words_box(self):
-        return toga.Button(
+        return StyledButton(
         'Англо-Русский словарь',
         on_press=lambda _: self.move_btn_callbacks['words_box'](),
     )
 
     @property
     def btn_move_create_word_box(self):
-        return toga.Button(
-        text='Добавить слово',
+        return StyledButton(
+        'Добавить слово',
         on_press=lambda _: self.move_btn_callbacks['create_word_box'](),
     )
