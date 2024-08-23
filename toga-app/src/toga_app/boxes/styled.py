@@ -11,6 +11,14 @@ PADDING_RIGHT = SMALL_PADDING * 2
 PADDING_BOTTOM = SMALL_PADDING
 PADDING_LEFT = SMALL_PADDING * 2
 
+STYLED_BTN = Pack(
+    padding_top=PADDING_TOP,
+    padding_right=PADDING_RIGHT,
+    padding_bottom=PADDING_BOTTOM,
+    padding_left=PADDING_LEFT,
+    height=HEIGHT,
+)
+
 
 class BoxHeading(toga.Label):
 

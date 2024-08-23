@@ -10,6 +10,7 @@ BOX_CLASSES = {
     'main_box': boxes.MainBox,
     'words_box': boxes.WordsBox,
     'create_word_box': boxes.CreateWordBox,
+    'update_word_box': boxes.UpdateWordBox,
 }
 
 
@@ -19,6 +20,7 @@ class TogaApp(toga.App):
     main_box: boxes.MainBox
     words_box: boxes.BaseBox
     create_word_box: boxes.BaseBox
+    update_word_box: boxes.BaseBox
     move_btns: Buttons
 
     def __init__(self):
@@ -27,6 +29,7 @@ class TogaApp(toga.App):
             'main_box': self.to_main_box,
             'words_box': self.to_words_box,
             'create_word_box': self.to_create_word_box,
+            'update_word_box': self.to_update_word_box,
         }
         self.move_btns = Buttons(self.move_btn_callbacks)
 
@@ -53,9 +56,12 @@ class TogaApp(toga.App):
     def to_create_word_box(self):
         """Move to Create Word box."""
         self.set_main_window_content(self.create_word_box)
-        # End Button callback functions
-        ###############################
 
+    def to_update_word_box(self):
+        """Move to Update Word box."""
+        self.set_main_window_content(self.update_word_box)
+
+    ####################################################################
     def set_main_window_content(self, box: boxes.BaseBox):
         """Set the content of the window as the given box."""
         self.main_window.content = box

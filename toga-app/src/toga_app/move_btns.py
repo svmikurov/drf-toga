@@ -17,7 +17,7 @@ class Buttons:
     @property
     def btn_move_words_box(self):
         return StyledButton(
-        'Англо-Русский словарь',
+        'Словарь',
         on_press=lambda _: self.move_btn_callbacks['words_box'](),
     )
 
@@ -26,4 +26,11 @@ class Buttons:
         return StyledButton(
         'Добавить слово',
         on_press=lambda _: self.move_btn_callbacks['create_word_box'](),
+    )
+
+    @property
+    def btn_move_update_word_box(self):
+        return StyledButton(
+        'Изменить слово',
+        on_press=lambda _: self.move_btn_callbacks['update_word_box'](),
     )
