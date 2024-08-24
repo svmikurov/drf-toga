@@ -25,4 +25,5 @@ from drf_app.views import drf_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/words/', drf_views.WordListCreateAPIView.as_view()),
+    path('api/v1/words/<int:pk>/', drf_views.UpdateDeleteAPIView.as_view()),
 ]
