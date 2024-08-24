@@ -1,3 +1,5 @@
+"""URL configuration for API requests."""
+
 from django.urls import path
 
 from drf_app import views
