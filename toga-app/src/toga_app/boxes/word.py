@@ -50,18 +50,6 @@ class WordsBox(BaseBox):
 
         ################################################################
         # Buttons
-        self.btn_create = StyledButton(
-            'Добавить слово',
-            on_press=self.create_handler,
-        )
-        self.btn_create = StyledButton(
-            'Добавить слово',
-            on_press=self.create_handler,
-        )
-        self.btn_update = StyledButton(
-            'Изменить слово',
-            on_press=self.update_handler,
-        )
         self.btn_delete = StyledButton(
             'Удалить слово',
             on_press=self.delete_handler,
@@ -91,7 +79,6 @@ class WordsBox(BaseBox):
             ),
             self.words_table,
         )
-        self.fill_table()
 
     ####################################################################
     # Table callback functions
