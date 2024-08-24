@@ -3,7 +3,7 @@
 from urllib.parse import urljoin
 
 import toga
-from toga import Widget
+from toga import Widget, App
 from toga.style import Pack
 from travertino.constants import CENTER, COLUMN, ITALIC
 
@@ -79,6 +79,9 @@ class WordsBox(BaseBox):
             ),
             self.words_table,
         )
+
+    def __call__(self, *args, **kwargs):
+        self.fill_table()
 
     ####################################################################
     # Table callback functions

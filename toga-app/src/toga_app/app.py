@@ -18,7 +18,7 @@ class TogaApp(toga.App):
     """Main app instance."""
 
     main_box: boxes.MainBox
-    words_box: boxes.BaseBox
+    words_box: boxes.WordsBox
     create_word_box: boxes.BaseBox
     update_word_box: boxes.BaseBox
     move_btns: BoxButtons
@@ -53,6 +53,8 @@ class TogaApp(toga.App):
     def to_words_box(self) -> None:
         """Move to Words box."""
         self.set_main_window_content(self.words_box)
+        # Fill the table.
+        self.words_box()
 
     def to_create_word_box(self) -> None:
         """Move to Create Word box."""
