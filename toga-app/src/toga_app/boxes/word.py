@@ -9,14 +9,13 @@ from travertino.constants import CENTER, COLUMN, ITALIC
 
 from toga_app.boxes.base import BaseBox
 from toga_app.boxes.styled import (
-    STYLED_BTN,
     BoxHeading,
     PartSplitBox,
     StyledButton,
     StyledTextInput,
 )
 from toga_app.contrib.http_requests import send_get_request
-from toga_app.move_btns import MoveBoxButtons
+from toga_app.move_btns import BoxButtons
 
 HOST_API = 'http://127.0.0.1:8000/api/v1/'
 WORDS_PATH = 'words/'
@@ -27,7 +26,7 @@ class WordsBox(BaseBox):
 
     box_heading = BoxHeading(text='Англо-Русский словарь')
 
-    def __init__(self, move_btns: dict) -> None:
+    def __init__(self, move_btns: BoxButtons) -> None:
         """Construct the Words Box."""
         super().__init__()
         self.move_btns = move_btns
@@ -48,18 +47,21 @@ class WordsBox(BaseBox):
 
         ################################################################
         # Buttons
-        btn_style = STYLED_BTN
-        self.btn_update_table = StyledButton(
-            'Обновить', on_press=self.update_table_handler
+        self.btn_create = StyledButton(
+            'Добавить слово',
+            on_press=self.create_handler,
         )
-        self.btn_create = toga.Button(
-            'Добавить слово', on_press=self.create_handler, style=btn_style
+        self.btn_create = StyledButton(
+            'Добавить слово',
+            on_press=self.create_handler,
         )
-        self.btn_update = toga.Button(
-            'Изменить слово', on_press=self.update_handler, style=btn_style
+        self.btn_update = StyledButton(
+            'Изменить слово',
+            on_press=self.update_handler,
         )
-        self.btn_delete = toga.Button(
-            'Удалить слово', on_press=self.delete_handler, style=btn_style
+        self.btn_delete = StyledButton(
+            'Удалить слово',
+            on_press=self.delete_handler,
         )
 
         ################################################################
@@ -119,7 +121,7 @@ class CreateWordBox(BaseBox):
 
     box_heading = BoxHeading(text='Добавление слова')
 
-    def __init__(self, move_btns: MoveBoxButtons) -> None:
+    def __init__(self, move_btns: BoxButtons) -> None:
         """Construct the Create Word box."""
         super().__init__()
         self.move_btns = move_btns
@@ -173,7 +175,7 @@ class UpdateWordBox(BaseBox):
 
     box_heading = BoxHeading(text='Добавление слова')
 
-    def __init__(self, move_btns: MoveBoxButtons) -> None:
+    def __init__(self, move_btns: BoxButtons) -> None:
         """Construct the Update Word Box."""
         super().__init__()
         self.move_btns = move_btns

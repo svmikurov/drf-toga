@@ -4,22 +4,15 @@ import toga
 from toga.style import Pack
 from travertino.constants import BOLD, CENTER, COLUMN
 
-from toga_app.consts import SMALL_PADDING
-
 HEIGHT = 40
-PADDING_TOP = SMALL_PADDING
-PADDING_RIGHT = SMALL_PADDING * 2
-PADDING_BOTTOM = SMALL_PADDING
-PADDING_LEFT = SMALL_PADDING * 2
-NO_PADDING = 0
 
-STYLED_BTN = Pack(
-    padding_top=PADDING_TOP,
-    padding_right=PADDING_RIGHT,
-    padding_bottom=PADDING_BOTTOM,
-    padding_left=PADDING_LEFT,
-    height=HEIGHT,
-)
+NO_PADDING = 0
+SMALL_PADDING = 2
+HALF_SMALL_PADDING = int(SMALL_PADDING / 2)
+PADDING_TOP = SMALL_PADDING
+PADDING_RIGHT = SMALL_PADDING
+PADDING_BOTTOM = SMALL_PADDING
+PADDING_LEFT = SMALL_PADDING
 
 
 class BoxHeading(toga.Label):
@@ -53,22 +46,28 @@ class BoxHeading(toga.Label):
 
 
 class StyledButton(toga.Button):
-    """Styled Button widget."""
+    """Styled Move Buttons."""
 
     def __init__(
         self,
         text: str | None = None,
-        *,
+        icon: object | None = None,
+        id: str | None = None,
+        # Style
         padding_left: int = PADDING_LEFT,
         padding_right: int = PADDING_RIGHT,
         padding_top: int = PADDING_TOP,
         padding_bottom: int = PADDING_BOTTOM,
         height: int = HEIGHT,
-        **kwargs: object,
+        # End style
+        on_press: toga.widgets.button.OnPressHandler | None = None,
+        enabled: bool = True,
     ) -> None:
-        """Construct the Styled Button widget."""
+        """Construct the style for Move Buttons."""
         super().__init__(
             text=text,
+            icon=icon,
+            id=id,
             style=Pack(
                 padding_left=padding_left,
                 padding_right=padding_right,
@@ -76,7 +75,8 @@ class StyledButton(toga.Button):
                 padding_bottom=padding_bottom,
                 height=height,
             ),
-            **kwargs,
+            on_press=on_press,
+            enabled=enabled,
         )
 
 

@@ -4,7 +4,7 @@ import toga
 
 from toga_app import boxes
 from toga_app.consts import MAIN_WINDOW_SIZE
-from toga_app.move_btns import MoveBoxButtons
+from toga_app.move_btns import BoxButtons
 
 BOX_CLASSES = {
     'main_box': boxes.MainBox,
@@ -21,7 +21,7 @@ class TogaApp(toga.App):
     words_box: boxes.BaseBox
     create_word_box: boxes.BaseBox
     update_word_box: boxes.BaseBox
-    move_btns: MoveBoxButtons
+    move_btns: BoxButtons
 
     def __init__(self) -> None:
         """Construct the Main Box window."""
@@ -32,7 +32,7 @@ class TogaApp(toga.App):
             'create_word_box': self.to_create_word_box,
             'update_word_box': self.to_update_word_box,
         }
-        self.move_btns = MoveBoxButtons(self.move_btn_callbacks)
+        self.move_btns = BoxButtons(self.move_btn_callbacks)
 
     def startup(self) -> None:
         """Construct Main window consider other windows."""

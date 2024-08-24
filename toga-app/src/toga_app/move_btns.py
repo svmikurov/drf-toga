@@ -1,17 +1,21 @@
-"""Move buttons."""
+"""Module with buttons for moving between boxes."""
 
 from toga import Button
 
-from toga_app.boxes.styled import StyledButton
+from toga_app.boxes.styled import (
+    HALF_SMALL_PADDING,
+    StyledButton,
+)
 
 
-class MoveBoxButtons:
-    """Move buttons."""
+class BoxButtons(StyledButton):
+    """Buttons for moving between boxes."""
 
     move_btn_callbacks: dict
 
     def __init__(self, move_btn_callbacks: dict) -> None:
         """Add button callback function."""
+        super().__init__()
         self.move_btn_callbacks = move_btn_callbacks
 
     @property
@@ -20,6 +24,7 @@ class MoveBoxButtons:
         return StyledButton(
             'На главную',
             on_press=lambda _: self.move_btn_callbacks['main_box'](),
+            padding_right=HALF_SMALL_PADDING,
         )
 
     @property
@@ -28,6 +33,7 @@ class MoveBoxButtons:
         return StyledButton(
             'Словарь',
             on_press=lambda _: self.move_btn_callbacks['words_box'](),
+            padding_left=HALF_SMALL_PADDING,
         )
 
     @property
@@ -36,6 +42,7 @@ class MoveBoxButtons:
         return StyledButton(
             'Добавить слово',
             on_press=lambda _: self.move_btn_callbacks['create_word_box'](),
+            padding_left=HALF_SMALL_PADDING,
         )
 
     @property
@@ -44,4 +51,5 @@ class MoveBoxButtons:
         return StyledButton(
             'Изменить слово',
             on_press=lambda _: self.move_btn_callbacks['update_word_box'](),
+            padding_right=HALF_SMALL_PADDING,
         )
