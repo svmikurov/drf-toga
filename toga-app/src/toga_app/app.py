@@ -19,8 +19,9 @@ class TogaApp(toga.App):
 
     main_box: boxes.MainBox
     words_box: boxes.WordsBox
-    create_word_box: boxes.BaseBox
-    update_word_box: boxes.BaseBox
+    words_table: toga.Table
+    create_word_box: boxes.CreateWordBox
+    update_word_box: boxes.UpdateWordBox
     move_btns: BoxButtons
 
     def __init__(self) -> None:
@@ -53,8 +54,7 @@ class TogaApp(toga.App):
     def to_words_box(self) -> None:
         """Move to Words box."""
         self.set_main_window_content(self.words_box)
-        # Fill the table.
-        self.words_box()
+        self.words_box.fill_table()
 
     def to_create_word_box(self) -> None:
         """Move to Create Word box."""
@@ -63,6 +63,11 @@ class TogaApp(toga.App):
     def to_update_word_box(self) -> None:
         """Move to Update Word box."""
         self.set_main_window_content(self.update_word_box)
+        word_data = self.words_box.words_table.selection
+        self.update_word_box.word_pk = word_data.pk
+        # Fill update word inputs
+        self.update_word_box.eng_word_input.value = word_data.eng_word
+        self.update_word_box.rus_word_input.value = word_data.rus_word
 
     ####################################################################
     def set_main_window_content(self, box: boxes.BaseBox) -> None:
