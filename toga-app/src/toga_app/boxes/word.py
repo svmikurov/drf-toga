@@ -178,7 +178,17 @@ class UpdateWordBox(BaseBox):
         super().__init__()
         self.move_btns = move_btns
 
-        self.eng_word_input = StyledTextInput(placeholder='Слово на английском')  # noqa: E501
+        self.btns_split_box = toga.Box()
+        self.left_box = PartSplitBox()
+        self.right_box = PartSplitBox()
+
+        self.btns_split_box.add(self.right_box, self.left_box)
+        self.right_box.insert(0, self.move_btns.btn_move_main_box)
+        self.left_box.insert(0, self.move_btns.btn_move_words_box)
+
+        self.eng_word_input = StyledTextInput(
+            placeholder='Слово на английском'
+        )  # noqa: E501
         self.rus_word_input = StyledTextInput(placeholder='Слово на русском')
 
         self.btn_submit = StyledButton(
@@ -187,18 +197,7 @@ class UpdateWordBox(BaseBox):
 
         self.add(
             self.box_heading,
-            toga.Box(
-                children=[
-                    toga.Box(
-                        style=Pack(flex=1, direction=COLUMN, alignment=CENTER),
-                        children=[self.move_btns.btn_move_main_box]
-                    ),
-                    toga.Box(
-                        style=Pack(flex=1, direction=COLUMN, alignment=CENTER),
-                        children=[self.move_btns.btn_move_words_box]
-                    ),
-                ]
-            ),
+            self.btns_split_box,
             self.eng_word_input,
             self.rus_word_input,
             self.btn_submit,
