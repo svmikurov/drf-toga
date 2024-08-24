@@ -15,8 +15,8 @@ from toga_app.boxes.styled import (
     StyledTextInput,
 )
 from toga_app.contrib.http_requests import (
-    send_get_request,
     send_delete_request,
+    send_get_request,
 )
 from toga_app.move_btns import BoxButtons
 
