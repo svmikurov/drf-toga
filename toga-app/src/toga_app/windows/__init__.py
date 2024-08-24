@@ -1,0 +1,1 @@
+from toga_app.windows.words import EnglishRussianDictionaryWindow
