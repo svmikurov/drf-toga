@@ -11,6 +11,7 @@ PADDING_TOP = SMALL_PADDING
 PADDING_RIGHT = SMALL_PADDING * 2
 PADDING_BOTTOM = SMALL_PADDING
 PADDING_LEFT = SMALL_PADDING * 2
+NO_PADDING = 0
 
 STYLED_BTN = Pack(
     padding_top=PADDING_TOP,
@@ -101,5 +102,26 @@ class StyledTextInput(toga.TextInput):
                 padding_bottom=padding_bottom,
                 height=height,
             ),
-            **kwargs
+            **kwargs,
+        )
+
+
+class PartSplitBox(toga.Box):
+    """Box for insertion into a split box."""
+
+    def __init__(
+        self,
+        *args: object,
+        padding_left: int = NO_PADDING,
+        padding_right: int = NO_PADDING,
+        **kwargs: object,
+    ) -> None:
+        """Construct the box."""
+        super().__init__(*args, **kwargs)
+        self.style = Pack(
+            flex=1,
+            padding_left=padding_left,
+            padding_right=padding_right,
+            direction=COLUMN,
+            alignment=CENTER,
         )
