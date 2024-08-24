@@ -1,5 +1,6 @@
-"""Learn DRF views module."""
+"""Django REST framework views."""
 
+from contrib.generics import BaseUpdateDeleteAPIView
 from rest_framework import generics
 
 from drf_app.models.words import Word
@@ -7,14 +8,14 @@ from drf_app.serializers import WordSerializer
 
 
 class WordListCreateAPIView(generics.ListCreateAPIView):
-    """Word List API view."""
+    """Word List or Create view."""
 
     queryset = Word.objects.all()
     serializer_class = WordSerializer
 
 
-class DeleteWordAPIView(generics.DestroyAPIView):
-    """Delete Word API view."""
+class UpdateDeleteAPIView(BaseUpdateDeleteAPIView):
+    """Word Update or Delete view."""
 
     queryset = Word.objects.all()
     serializer_class = WordSerializer
