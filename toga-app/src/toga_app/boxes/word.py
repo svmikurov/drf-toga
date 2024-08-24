@@ -1,29 +1,34 @@
+"""Word boxes."""
+
 from urllib.parse import urljoin
 
 import toga
 from toga import Widget
 from toga.style import Pack
-from travertino.constants import COLUMN, CENTER
+from travertino.constants import CENTER, COLUMN, ITALIC
 
 from toga_app.boxes.base import BaseBox
-
 from toga_app.boxes.styled import (
-    BoxHeading,
     STYLED_BTN,
-    StyledTextInput,
+    BoxHeading,
+    PartSplitBox,
     StyledButton,
+    StyledTextInput,
 )
 from toga_app.contrib.http_requests import send_get_request
+from toga_app.move_btns import MoveBoxButtons
 
 HOST_API = 'http://127.0.0.1:8000/api/v1/'
-LIST_PATH = 'words/list/'
+WORDS_PATH = 'words/'
 
 
 class WordsBox(BaseBox):
+    """Words Box."""
 
     box_heading = BoxHeading(text='Англо-Русский словарь')
 
-    def __init__(self, move_btns) -> None:
+    def __init__(self, move_btns: dict) -> None:
+        """Construct the Words Box."""
         super().__init__()
         self.move_btns = move_btns
 
@@ -34,7 +39,7 @@ class WordsBox(BaseBox):
             style=Pack(
                 padding=(14, 7, 7, 7),
                 flex=1,
-                font_style='italic',
+                font_style=ITALIC,
             ),
         )
 
@@ -51,8 +56,7 @@ class WordsBox(BaseBox):
             'Добавить слово', on_press=self.create_handler, style=btn_style
         )
         self.btn_update = toga.Button(
-            'Изменить слово',
-            on_press=self.update_handler, style=btn_style
+            'Изменить слово', on_press=self.update_handler, style=btn_style
         )
         self.btn_delete = toga.Button(
             'Удалить слово', on_press=self.delete_handler, style=btn_style
@@ -75,8 +79,8 @@ class WordsBox(BaseBox):
                         style=Pack(flex=1, direction=COLUMN, alignment=CENTER),
                         children=[
                             self.move_btns.btn_move_create_word_box,
-                            self.btn_delete
-                        ]
+                            self.btn_delete,
+                        ],
                     ),
                 ],
             ),
@@ -86,34 +90,43 @@ class WordsBox(BaseBox):
 
     ####################################################################
     # Table callback functions
-    def update_table_handler(self, widget: Widget):
+    def update_table_handler(self, widget: Widget) -> None:
+        """Update Word List table."""
         self.fill_table()
 
     ####################################################################
     # Button callback functions
-    def create_handler(self, widget: Widget):
+    def create_handler(self, widget: Widget) -> None:
+        """Create word."""
         self.fill_table()
 
-    def update_handler(self, widget: Widget):
+    def update_handler(self, widget: Widget) -> None:
+        """Update word."""
         self.fill_table()
 
-    def delete_handler(self, widget: Widget):
+    def delete_handler(self, widget: Widget) -> None:
+        """Delete word."""
         self.fill_table()
 
     ####################################################################
-    def fill_table(self):
-        self.words_table.data = send_get_request(urljoin(HOST_API, LIST_PATH))
+    def fill_table(self) -> None:
+        """Fill the Word Table box."""
+        self.words_table.data = send_get_request(urljoin(HOST_API, WORDS_PATH))
 
 
 class CreateWordBox(BaseBox):
+    """Create Word Bpx."""
 
     box_heading = BoxHeading(text='Добавление слова')
 
-    def __init__(self, move_btns) -> None:
+    def __init__(self, move_btns: MoveBoxButtons) -> None:
+        """Construct the Create Word box."""
         super().__init__()
         self.move_btns = move_btns
 
-        self.eng_word_input = StyledTextInput(placeholder='Слово на английском')  # noqa: E501
+        self.eng_word_input = StyledTextInput(
+            placeholder='Слово на английском'
+        )  # noqa: E501
         self.rus_word_input = StyledTextInput(placeholder='Слово на русском')
 
         self.btn_submit = StyledButton(
@@ -126,25 +139,25 @@ class CreateWordBox(BaseBox):
                 children=[
                     toga.Box(
                         style=Pack(flex=1, direction=COLUMN, alignment=CENTER),
-                        children=[self.move_btns.btn_move_main_box]
+                        children=[self.move_btns.btn_move_main_box],
                     ),
                     toga.Box(
                         style=Pack(flex=1, direction=COLUMN, alignment=CENTER),
-                        children=[self.move_btns.btn_move_words_box]
+                        children=[self.move_btns.btn_move_words_box],
                     ),
                 ]
             ),
             self.eng_word_input,
             self.rus_word_input,
-            self.btn_submit
+            self.btn_submit,
         )
 
     def create_word_handler(self, widget: toga.Widget) -> None:
         """Add Word to English-Russian dictionary."""
-        data = {
-            'eng_word': self.eng_word_input.value,
-            'rus_word': self.rus_word_input.value,
-        }
+        # data = {
+        #     'eng_word': self.eng_word_input.value,
+        #     'rus_word': self.rus_word_input.value,
+        # }
         # response = send_post_request(
         #     url=urljoin(HOST_API, URL_PATH),
         #     data=data,
@@ -156,10 +169,12 @@ class CreateWordBox(BaseBox):
 
 
 class UpdateWordBox(BaseBox):
+    """Update Word Box."""
 
     box_heading = BoxHeading(text='Добавление слова')
 
-    def __init__(self, move_btns) -> None:
+    def __init__(self, move_btns: MoveBoxButtons) -> None:
+        """Construct the Update Word Box."""
         super().__init__()
         self.move_btns = move_btns
 
@@ -167,7 +182,7 @@ class UpdateWordBox(BaseBox):
         self.rus_word_input = StyledTextInput(placeholder='Слово на русском')
 
         self.btn_submit = StyledButton(
-            text='Обновить', on_press=self.create_word_handler
+            text='Обновить', on_press=self.word_handler
         )
 
         self.add(
@@ -186,15 +201,15 @@ class UpdateWordBox(BaseBox):
             ),
             self.eng_word_input,
             self.rus_word_input,
-            self.btn_submit
+            self.btn_submit,
         )
 
-    def create_word_handler(self, widget: toga.Widget) -> None:
+    def word_handler(self, widget: toga.Widget) -> None:
         """Add Word to English-Russian dictionary."""
-        data = {
-            'eng_word': self.eng_word_input.value,
-            'rus_word': self.rus_word_input.value,
-        }
+        # data = {
+        #     'eng_word': self.eng_word_input.value,
+        #     'rus_word': self.rus_word_input.value,
+        # }
         # response = send_post_request(
         #     url=urljoin(HOST_API, URL_PATH),
         #     data=data,

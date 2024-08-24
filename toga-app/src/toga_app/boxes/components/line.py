@@ -1,4 +1,6 @@
 """Row box."""
+
+from toga import Widget
 from toga.style import Pack
 from toga.style.pack import CENTER, ROW
 
@@ -11,15 +13,15 @@ class LineBox(BaseBox):
 
     def __init__(
         self,
-        height=LINE_HEIGHT,
-        alignment=CENTER,
-        padding_left=SMALL_PADDING,
-        padding_right=SMALL_PADDING,
-        padding_top=SMALL_PADDING,
-        padding_bottom=SMALL_PADDING,
-        children=None,
-        **kwargs,
-    ):
+        height: int = LINE_HEIGHT,
+        alignment: str = CENTER,
+        padding_left: int = SMALL_PADDING,
+        padding_right: int = SMALL_PADDING,
+        padding_top: int = SMALL_PADDING,
+        padding_bottom: int = SMALL_PADDING,
+        children: Widget | None = None,
+        **kwargs: object,
+    ) -> None:
         """Initialize box."""
         super().__init__(
             style=Pack(

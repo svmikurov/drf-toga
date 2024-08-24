@@ -1,7 +1,8 @@
-from toga.style import Pack
+"""Styled widgets."""
 
 import toga
-from travertino.constants import BOLD, CENTER
+from toga.style import Pack
+from travertino.constants import BOLD, CENTER, COLUMN
 
 from toga_app.consts import SMALL_PADDING
 
@@ -21,19 +22,21 @@ STYLED_BTN = Pack(
 
 
 class BoxHeading(toga.Label):
+    """Box Heading widget."""
 
     def __init__(
         self,
         text: str,
         *,
-        padding_left=PADDING_LEFT,
-        padding_right=PADDING_RIGHT,
-        padding_top=PADDING_TOP,
-        padding_bottom=PADDING_BOTTOM,
-        text_align=CENTER,
-        font_weight=BOLD,
-        **kwargs,
-    ):
+        padding_left: int = PADDING_LEFT,
+        padding_right: int = PADDING_RIGHT,
+        padding_top: int = PADDING_TOP,
+        padding_bottom: int = PADDING_BOTTOM,
+        text_align: str = CENTER,
+        font_weight: str = BOLD,
+        **kwargs: object,
+    ) -> None:
+        """Construct The Box Heading widget."""
         super().__init__(
             text=text,
             style=Pack(
@@ -44,23 +47,25 @@ class BoxHeading(toga.Label):
                 text_align=text_align,
                 font_weight=font_weight,
             ),
-            **kwargs
+            **kwargs,
         )
 
 
 class StyledButton(toga.Button):
+    """Styled Button widget."""
 
     def __init__(
         self,
         text: str | None = None,
         *,
-        padding_left=PADDING_LEFT,
-        padding_right=PADDING_RIGHT,
-        padding_top=PADDING_TOP,
-        padding_bottom=PADDING_BOTTOM,
-        height=HEIGHT,
-        **kwargs,
-    ):
+        padding_left: int = PADDING_LEFT,
+        padding_right: int = PADDING_RIGHT,
+        padding_top: int = PADDING_TOP,
+        padding_bottom: int = PADDING_BOTTOM,
+        height: int = HEIGHT,
+        **kwargs: object,
+    ) -> None:
+        """Construct the Styled Button widget."""
         super().__init__(
             text=text,
             style=Pack(
@@ -70,22 +75,24 @@ class StyledButton(toga.Button):
                 padding_bottom=padding_bottom,
                 height=height,
             ),
-            **kwargs
+            **kwargs,
         )
 
 
 class StyledTextInput(toga.TextInput):
+    """Styled Text Input widget."""
 
     def __init__(
         self,
         *,
-        padding_left=PADDING_LEFT,
-        padding_right=PADDING_RIGHT,
-        padding_top=PADDING_TOP,
-        padding_bottom=PADDING_BOTTOM,
-        height=HEIGHT,
-        **kwargs,
-    ):
+        padding_left: int = PADDING_LEFT,
+        padding_right: int = PADDING_RIGHT,
+        padding_top: int = PADDING_TOP,
+        padding_bottom: int = PADDING_BOTTOM,
+        height: int = HEIGHT,
+        **kwargs: object,
+    ) -> None:
+        """Construct the Styled Text Input widget."""
         super().__init__(
             style=Pack(
                 padding_left=padding_left,

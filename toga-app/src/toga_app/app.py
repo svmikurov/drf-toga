@@ -4,7 +4,7 @@ import toga
 
 from toga_app import boxes
 from toga_app.consts import MAIN_WINDOW_SIZE
-from toga_app.move_btns import Buttons
+from toga_app.move_btns import MoveBoxButtons
 
 BOX_CLASSES = {
     'main_box': boxes.MainBox,
@@ -15,15 +15,16 @@ BOX_CLASSES = {
 
 
 class TogaApp(toga.App):
-    """Simple Toga application."""
+    """Main app instance."""
 
     main_box: boxes.MainBox
     words_box: boxes.BaseBox
     create_word_box: boxes.BaseBox
     update_word_box: boxes.BaseBox
-    move_btns: Buttons
+    move_btns: MoveBoxButtons
 
-    def __init__(self):
+    def __init__(self) -> None:
+        """Construct the Main Box window."""
         super().__init__()
         self.move_btn_callbacks = {
             'main_box': self.to_main_box,
@@ -31,7 +32,7 @@ class TogaApp(toga.App):
             'create_word_box': self.to_create_word_box,
             'update_word_box': self.to_update_word_box,
         }
-        self.move_btns = Buttons(self.move_btn_callbacks)
+        self.move_btns = MoveBoxButtons(self.move_btn_callbacks)
 
     def startup(self) -> None:
         """Construct Main window consider other windows."""
@@ -45,24 +46,24 @@ class TogaApp(toga.App):
 
     ####################################################################
     # Button callback functions
-    def to_main_box(self):
+    def to_main_box(self) -> None:
         """Move to Main box."""
         self.set_main_window_content(self.main_box)
 
-    def to_words_box(self):
+    def to_words_box(self) -> None:
         """Move to Words box."""
         self.set_main_window_content(self.words_box)
 
-    def to_create_word_box(self):
+    def to_create_word_box(self) -> None:
         """Move to Create Word box."""
         self.set_main_window_content(self.create_word_box)
 
-    def to_update_word_box(self):
+    def to_update_word_box(self) -> None:
         """Move to Update Word box."""
         self.set_main_window_content(self.update_word_box)
 
     ####################################################################
-    def set_main_window_content(self, box: boxes.BaseBox):
+    def set_main_window_content(self, box: boxes.BaseBox) -> None:
         """Set the content of the window as the given box."""
         self.main_window.content = box
 

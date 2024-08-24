@@ -67,9 +67,7 @@ class WordListWindow(BaseWindow):
 
     ####################################################################
     # handlers
-    def fill_word_list_handler(
-            self, widget: Widget, **kwargs: object
-    ) -> None:
+    def fill_word_list_handler(self, widget: Widget, **kwargs: object) -> None:
         """Fill word list table handler."""
         self.fill_word_list_table()
 
