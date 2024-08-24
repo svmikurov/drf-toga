@@ -14,7 +14,10 @@ from toga_app.boxes.styled import (
     StyledButton,
     StyledTextInput,
 )
-from toga_app.contrib.http_requests import send_get_request
+from toga_app.contrib.http_requests import (
+    send_get_request,
+    send_delete_request,
+)
 from toga_app.move_btns import BoxButtons
 
 HOST_API = 'http://127.0.0.1:8000/api/v1/'
@@ -108,7 +111,12 @@ class WordsBox(BaseBox):
 
     def delete_handler(self, widget: Widget) -> None:
         """Delete word."""
+        word_pk = f'{self.words_table.selection.pk}/'
+        delete_path = urljoin(WORDS_PATH, word_pk)
+        url = urljoin(HOST_API, delete_path)
+        response = send_delete_request(url)
         self.fill_table()
+        self.window.info_dialog(title='Сообщение:', message=response)
 
     ####################################################################
     def fill_table(self) -> None:
