@@ -19,17 +19,9 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from drf_app import views
-from drf_app.views import drf_views
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(
-        'api/v1/math-calc-exercise/', views.MathCalcExerciseAPIView.as_view()
-    ),
-    path('api/v1/words/list/', drf_views.WordListCreateAPIView.as_view()),
-    path(
-        'api/v1/words/delete/<int:pk>/', drf_views.DeleteWordAPIView.as_view()
-    ),
+    path('api/v1/', include('drf_app.urls')),
 ]
