@@ -2,7 +2,9 @@
 
 import httpx
 
-auth = httpx.BasicAuth('admin', '1q2s3d4r')
+IS_AUTH = 0
+
+auth = httpx.BasicAuth('admin', '1q2s3d4r') if IS_AUTH else None
 
 
 def send_get_request(url: str) -> list[dict]:
