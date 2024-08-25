@@ -10,13 +10,16 @@ from rest_framework.permissions import (
 from drf_app.models.words import Word
 from drf_app.serializers import WordSerializer
 
+IS_PERMISSION = 0
+
 
 class WordListCreateAPIView(generics.ListCreateAPIView):
     """Word List or Create view."""
 
     queryset = Word.objects.all()
     serializer_class = WordSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    if IS_PERMISSION:
+        permission_classes = (IsAuthenticatedOrReadOnly, )
 
 
 class WordRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
@@ -24,4 +27,5 @@ class WordRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
     queryset = Word.objects.all()
     serializer_class = WordSerializer
-    permission_classes = (IsAuthenticated, )
+    if IS_PERMISSION:
+        permission_classes = (IsAuthenticated, )
