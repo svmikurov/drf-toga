@@ -53,3 +53,19 @@ class BoxButtons(StyledButton):
             on_press=lambda _: self.move_btn_callbacks['update_word_box'](),
             padding_right=HALF_SMALL_PADDING,
         )
+
+    @property
+    def btn_move_explore_lsp_box(self) -> Button:
+        """Go to Update Word window."""
+        return StyledButton(
+            'Эксперимент с LSP',
+            on_press=lambda _: self.move_btn_callbacks['explore_lsp_box'](),
+        )
+
+    @property
+    def btn_move_auth_box(self) -> Button:
+        """Go to Auth Box."""
+        return StyledButton(
+            'Войти',
+            on_press=lambda _: self.move_btn_callbacks['auth_box'](),
+        )
