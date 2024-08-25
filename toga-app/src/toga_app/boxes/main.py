@@ -19,4 +19,6 @@ class MainBox(BaseBox):
             self.box_heading,
             self.move_btns.btn_move_words_box,
             self.move_btns.btn_move_create_word_box,
+            self.move_btns.btn_move_explore_lsp_box,
+            self.move_btns.btn_move_auth_box,
         )
