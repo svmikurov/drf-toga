@@ -19,11 +19,14 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
 from drf_app.views import drf_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/words/', drf_views.WordListCreateAPIView.as_view()),
-    path('api/v1/words/<int:pk>/', drf_views.WordRetrieveUpdateDestroyAPIView.as_view()),  # noqa: E501
+    path(
+        'api/v1/words/<int:pk>/',
+        drf_views.WordRetrieveUpdateDestroyAPIView.as_view(),
+    ),  # noqa: E501
 ]
