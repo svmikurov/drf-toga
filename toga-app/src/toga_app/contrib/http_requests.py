@@ -1,61 +1,48 @@
 """Requests module."""
 
+from urllib.parse import urljoin
+
 import httpx
 from httpx import Request, Response
 
 IS_AUTH = 1
+HOST_API = 'http://127.0.0.1:8000/'
+GET_TOKEN_PATH = 'auth/token/login/'
 
 
-class JWTAuth(httpx.Auth):
+class MuAuth(httpx.Auth):
     """Create custom auth."""
 
-    requires_response_body = True
+    _access_token = None
 
-    def __init__(
-        self,
-        access_token: object,
-        refresh_token: object,
-        refresh_url: object,
-    ) -> None:
+    def __init__(self, username: str, password: str) -> None:
         """Construct auth."""
-        self.access_token = access_token
-        self.refresh_token = refresh_token
-        self.refresh_url = refresh_url
+        self.payload = {
+            'username': username,
+            'password': password,
+        }
 
-    def auth_flow(self, request: Request) -> None:
-        """Auth."""
-        request.headers['X-Authentication'] = self.access_token
+    def auth_flow(self, request: Request) -> Request:
+        """Auth flow."""
         response = yield request
-
         if response.status_code == 401:
-            # If the server issues a 401 response, then issue a request
-            # to refresh tokens, and resend the request.
-            refresh_response = yield self.build_refresh_request()
-            self.update_tokens(refresh_response)
-
-            request.headers['X-Authentication'] = self.access_token
+            request.headers['Authorization'] = f'Token {self.access_token}'
             yield request
 
-    def build_refresh_request(self) -> None:
-        """Build refresh request."""
-        # Return an `httpx.Request` for refreshing tokens.
-        ...
+    @property
+    def access_token(self) -> str:
+        """Access token."""
+        if not self._access_token:
+            self.get_access_token()
+        return self._access_token
 
-    def update_tokens(self, response: Response) -> None:
-        """Update tokens."""
-        # Update the `.access_token` and `.refresh_token` tokens
-        # based on a refresh response.
-        data = response.json()  # noqa: F841
-        ...
+    def get_access_token(self) -> None:
+        """Get access token."""
+        response = send_post_request(path=GET_TOKEN_PATH, payload=self.payload)
+        self._access_token = response.json()['auth_token']
 
 
-auth = httpx.BasicAuth('admin', '1q2s3d4r') if IS_AUTH else None
-
-access_token = ...
-refresh_token = ...
-refresh_url = ...
-
-custom_auth = JWTAuth(access_token, refresh_token, refresh_url)
+auth = MuAuth('admin', '1q2s3d4r') if IS_AUTH else None
 
 
 def send_get_request(url: str) -> list[dict]:
@@ -65,11 +52,11 @@ def send_get_request(url: str) -> list[dict]:
     return response.json()
 
 
-def send_post_request(url: str, data: dict) -> str:
+def send_post_request(path: str, payload: dict) -> Response:
     """Send a `POST` request."""
     with httpx.Client(auth=auth) as client:
-        response = client.post(url, json=data)
-    return str(response.json())
+        response = client.post(url=urljoin(HOST_API, path), json=payload)
+    return response
 
 
 def send_patch_request(url: str, data: dict) -> str:

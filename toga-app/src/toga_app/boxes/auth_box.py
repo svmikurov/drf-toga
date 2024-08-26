@@ -3,9 +3,9 @@
 import toga
 from travertino.constants import COLUMN
 
+from toga_app.contrib.http_requests import send_post_request
 from toga_app.move_btns import BoxButtons
 
-HOST_API = 'http://127.0.0.1:8000/api/v1/'
 LOGIN_PATH = 'drf-auth/login/'
 
 
@@ -37,18 +37,11 @@ class AuthenticationBox(toga.Box):
 
     def login_request(self, username: str, password: str) -> None:
         """Log in request."""
-        pass
-
-    # Forbidden (CSRF cookie not set.): /api/v1/drf-auth/login/
-    # def login_request(self, username: str, password: str) -> None:
-    #     """Log in request."""
-    #     send_post_request(
-    #         url=urljoin(HOST_API, LOGIN_PATH),
-    #         data={
-    #             'username': username,
-    #             'password': password,
-    #         }
-    #     )
-
-    # self.username_input.clear()
-    # self.password_input.clear()
+        response = send_post_request(
+            path='auth/token/login/',
+            payload={
+                'username': username,
+                'password': password,
+            },
+        )
+        self.window.info_dialog('Сообщение:', str(response.json()))
