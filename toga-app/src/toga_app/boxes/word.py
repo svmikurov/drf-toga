@@ -17,13 +17,12 @@ from toga_app.boxes.styled import (
 from toga_app.contrib.http_requests import (
     send_delete_request,
     send_get_request,
-    send_patch_request,
+    send_put_request,
     send_post_request,
 )
 from toga_app.move_btns import BoxButtons
 
-HOST_API = 'http://127.0.0.1:8000/api/v1/'
-WORDS_PATH = 'words/'
+WORDS_PATH = 'api/v1/words/'
 
 
 class WordsBox(BaseBox):
@@ -92,16 +91,15 @@ class WordsBox(BaseBox):
     # Button callback functions
     def delete_handler(self, widget: Widget) -> None:
         """Delete word."""
-        word_pk = f'{self.words_table.selection.pk}/'
-        delete_path = urljoin(WORDS_PATH, word_pk)
-        response = send_delete_request(url=urljoin(HOST_API, delete_path))
+        delete_path = f'{WORDS_PATH}{self.words_table.selection.pk}/'
+        response = send_delete_request(delete_path)
         self.fill_table()
         self.window.info_dialog(title='Сообщение:', message=response)
 
     ####################################################################
     def fill_table(self) -> None:
         """Fill the Word Table box."""
-        self.words_table.data = send_get_request(urljoin(HOST_API, WORDS_PATH))
+        self.words_table.data = send_get_request(WORDS_PATH)
 
 
 class CreateWordBox(BaseBox):
@@ -144,18 +142,12 @@ class CreateWordBox(BaseBox):
 
     def create_word_handler(self, widget: toga.Widget) -> None:
         """Add Word to English-Russian dictionary."""
-        data = {
+        payload = {
             'eng_word': self.eng_word_input.value,
             'rus_word': self.rus_word_input.value,
         }
-        response = send_post_request(
-            url=urljoin(HOST_API, WORDS_PATH),
-            data=data,
-        )
-        self.window.info_dialog(
-            title='Сообщение:',
-            message=str(response),
-        )
+        response = send_post_request(path=WORDS_PATH, payload=payload)
+        self.window.info_dialog(title='Сообщение:', message=str(response))
 
 
 class UpdateWordBox(BaseBox):
@@ -196,15 +188,12 @@ class UpdateWordBox(BaseBox):
 
     def word_handler(self, widget: toga.Widget) -> None:
         """Add Word to English-Russian dictionary."""
-        data = {
+        payload = {
             'eng_word': self.eng_word_input.value,
             'rus_word': self.rus_word_input.value,
         }
-        update_path = urljoin(WORDS_PATH, f'{self.word_pk}/')
-        response = send_patch_request(
-            url=urljoin(HOST_API, update_path),
-            data=data,
-        )
+        update_path = f'{WORDS_PATH}{self.word_pk}/'
+        response = send_put_request(update_path, payload=payload)
         self.window.info_dialog(
             title='Результат отправки запроса',
             message=response,

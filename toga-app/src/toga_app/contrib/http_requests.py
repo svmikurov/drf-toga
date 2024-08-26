@@ -45,10 +45,10 @@ class MuAuth(httpx.Auth):
 auth = MuAuth('admin', '1q2s3d4r') if IS_AUTH else None
 
 
-def send_get_request(url: str) -> list[dict]:
+def send_get_request(path: str) -> list[dict]:
     """Send a `GET` request."""
     with httpx.Client(auth=auth) as client:
-        response = client.get(url=url)
+        response = client.get(url=urljoin(HOST_API, path))
     return response.json()
 
 
@@ -59,15 +59,15 @@ def send_post_request(path: str, payload: dict) -> Response:
     return response
 
 
-def send_patch_request(url: str, data: dict) -> str:
+def send_put_request(path: str, payload: dict) -> str:
     """Send a `POST` request."""
     with httpx.Client(auth=auth) as client:
-        response = client.patch(url, json=data)
-    return str(response.json())
+        response = client.put(url=urljoin(HOST_API, path), json=payload)
+    return str(response)
 
 
-def send_delete_request(url: str) -> str:
+def send_delete_request(path: str) -> str:
     """Send a `DELETE` request."""
     with httpx.Client(auth=auth) as client:
-        response = client.delete(url)
+        response = client.delete(url=urljoin(HOST_API, path))
     return str(response)
