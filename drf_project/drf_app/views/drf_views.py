@@ -2,10 +2,7 @@
 
 from rest_framework import generics
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import (
-    IsAuthenticated,
-    IsAuthenticatedOrReadOnly,
-)
+from rest_framework.permissions import IsAuthenticated
 
 from drf_app.models.words import Word
 from drf_app.serializers import WordSerializer
@@ -19,7 +16,7 @@ class WordListCreateAPIView(generics.ListCreateAPIView):
     queryset = Word.objects.all()
     serializer_class = WordSerializer
     if IS_PERMISSION:
-        permission_classes = (IsAuthenticatedOrReadOnly,)
+        permission_classes = (IsAuthenticated,)
 
 
 class WordRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
