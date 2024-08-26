@@ -20,11 +20,24 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
+
 from drf_app.views import drf_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/drf-auth/', include('rest_framework.urls')),
     path('api/v1/words/', drf_views.WordListCreateAPIView.as_view()),
     path('api/v1/words/<int:pk>/', drf_views.WordRetrieveUpdateDestroyAPIView.as_view()),  # noqa: E501
+    # To quickly add authentication to the browesable api ...
+    # https://www.django-rest-framework.org/topics/browsable-api/#authentication
+    path('api/v1/drf-auth/', include('rest_framework.urls')),  # End To quickly ...
+    # Simple JWT
+    # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html#project-configuration
+    path('api/token/', TokenObtainPairView.as_view(),name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(),name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),  # End Simple JWT
 ]
