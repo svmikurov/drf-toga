@@ -10,7 +10,7 @@ from rest_framework.permissions import (
 from drf_app.models.words import Word
 from drf_app.serializers import WordSerializer
 
-IS_PERMISSION = 0
+IS_PERMISSION = 1
 
 
 class WordListCreateAPIView(generics.ListCreateAPIView):
