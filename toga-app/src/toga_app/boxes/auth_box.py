@@ -1,6 +1,5 @@
-from urllib.parse import urljoin
+"""Auth box."""
 
-import httpx
 import toga
 from travertino.constants import COLUMN
 
@@ -14,6 +13,7 @@ class AuthenticationBox(toga.Box):
     """Authentication Box."""
 
     def __init__(self, move_btns: BoxButtons) -> None:
+        """Construct."""
         super().__init__()
         self.move_btns = move_btns
         self.username_input = toga.TextInput(placeholder='Введите имя')
@@ -29,13 +29,26 @@ class AuthenticationBox(toga.Box):
             self.submit,
         )
 
-    def login_handler(self, widget: toga.Widget):
+    def login_handler(self, widget: toga.Widget) -> None:
         """Log in button handler."""
-        self.login_request(self.username_input.value, self.password_input.value)  # noqa: E501
+        self.login_request(
+            self.username_input.value, self.password_input.value
+        )  # noqa: E501
 
     def login_request(self, username: str, password: str) -> None:
         """Log in request."""
         pass
 
-        # self.username_input.clear()
-        # self.password_input.clear()
+    # Forbidden (CSRF cookie not set.): /api/v1/drf-auth/login/
+    # def login_request(self, username: str, password: str) -> None:
+    #     """Log in request."""
+    #     send_post_request(
+    #         url=urljoin(HOST_API, LOGIN_PATH),
+    #         data={
+    #             'username': username,
+    #             'password': password,
+    #         }
+    #     )
+
+    # self.username_input.clear()
+    # self.password_input.clear()

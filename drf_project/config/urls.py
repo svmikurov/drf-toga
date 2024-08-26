@@ -28,5 +28,5 @@ urlpatterns = [
     path(
         'api/v1/words/<int:pk>/',
         drf_views.WordRetrieveUpdateDestroyAPIView.as_view(),
-    ),  # noqa: E501
+    ),
 ]

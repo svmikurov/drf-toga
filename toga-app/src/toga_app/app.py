@@ -93,6 +93,7 @@ class TogaApp(toga.App):
         self.update_word_box.eng_word_input.value = word_data.eng_word
         self.update_word_box.rus_word_input.value = word_data.rus_word
 
+
 def main() -> toga.App:
     """Return Toga app."""
     return TogaApp()
