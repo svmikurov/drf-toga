@@ -24,10 +24,8 @@ class MuAuth(httpx.Auth):
 
     def auth_flow(self, request: Request) -> Request:
         """Auth flow."""
-        response = yield request
-        if response.status_code == 401:
-            request.headers['Authorization'] = f'Token {self.access_token}'
-            yield request
+        request.headers['Authorization'] = f'Token {self.access_token}'
+        yield request
 
     @property
     def access_token(self) -> str:
@@ -38,7 +36,11 @@ class MuAuth(httpx.Auth):
 
     def get_access_token(self) -> None:
         """Get access token."""
-        response = send_post_request(path=GET_TOKEN_PATH, payload=self.payload)
+        with httpx.Client() as client:
+            response = client.post(
+                url=urljoin(HOST_API, GET_TOKEN_PATH),
+                json=self.payload,
+            )
         self._access_token = response.json()['auth_token']
 
 
