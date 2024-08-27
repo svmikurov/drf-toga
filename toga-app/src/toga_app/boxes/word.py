@@ -45,6 +45,7 @@ class WordsBox(BaseBox):
             ),
         )
 
+        # Buttons
         self.btn_update = StyledButton(
             'Изменить',
             on_press=self.update_handler,
@@ -55,16 +56,26 @@ class WordsBox(BaseBox):
             on_press=self.delete_handler,
             padding_left=HALF_SMALL_PADDING,
         )
+        self.btn_next_pagination_url = toga.Button(
+            '>>',
+            on_press=self.next_words_handler,
+        )
+        self.btn_previous_pagination_url = toga.Button(
+            '<<',
+            on_press=self.previous_words_handler,
+        )
 
-        # Create navigation box
+        # Create boxes
         self.nav_box = toga.Box()
         self.left_box = PartSplitBox()
         self.right_box = PartSplitBox()
+        self.pagination_box = toga.Box()
 
         # Build widget tree
         self.add(
             self.nav_box,
             self.words_table,
+            self.pagination_box,
         )
         self.nav_box.add(self.left_box, self.right_box)
         self.left_box.add(
@@ -74,6 +85,12 @@ class WordsBox(BaseBox):
         self.right_box.add(
             self.move_btns.btn_move_create_word_box,
             self.btn_delete,
+        )
+        self.pagination_box.add(
+            toga.Box(style=Pack(flex=1)),  # Spacer
+            self.btn_previous_pagination_url,
+            self.btn_next_pagination_url,
+            toga.Box(style=Pack(flex=1)),  # Spacer
         )
 
     ####################################################################
@@ -96,10 +113,23 @@ class WordsBox(BaseBox):
         except AttributeError:
             self.window.info_dialog('Сообщение:', 'Выберите слово')
 
+    def next_words_handler(self, widget: Widget) -> None:
+        """Get next word list by pagination."""
+        if self.next_pagination_url:
+            self.fill_table(self.next_pagination_url)
+
+    def previous_words_handler(self, widget: Widget) -> None:
+        """Get next word list by pagination."""
+        if self.previous_pagination_url:
+            self.fill_table(self.previous_pagination_url)
+
     ####################################################################
-    def fill_table(self) -> None:
+    def fill_table(self, url: str | None = None) -> None:
         """Fill the Word Table box."""
-        self.words_table.data = send_get_request(WORDS_PATH)
+        words_response = send_get_request(WORDS_PATH, url)
+        self.words_table.data = words_response['results']
+        self.next_pagination_url = words_response['next']
+        self.previous_pagination_url = words_response['previous']
 
     def fill_update_word_input(self) -> None:
         """Fill the word update input fields."""
