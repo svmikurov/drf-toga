@@ -80,10 +80,13 @@ class WordsBox(BaseBox):
     # Button callback functions
     def delete_handler(self, widget: Widget) -> None:
         """Delete word."""
-        delete_path = f'{WORDS_PATH}{self.words_table.selection.pk}/'
-        response = send_delete_request(delete_path)
-        self.fill_table()
-        self.window.info_dialog(title='Сообщение:', message=response)
+        try:
+            delete_path = f'{WORDS_PATH}{self.words_table.selection.pk}/'
+            response = send_delete_request(delete_path)
+            self.fill_table()
+            self.window.info_dialog(title='Сообщение:', message=response)
+        except AttributeError as e:
+            self.window.info_dialog('Сообщение:', 'Выберите слово')
 
     def update_handler(self, widget: Widget) -> None:
         """Update word handler."""
