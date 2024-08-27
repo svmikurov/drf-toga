@@ -148,7 +148,8 @@ class CreateWordBox(BaseBox):
         }
         response = send_post_request(path=WORDS_PATH, payload=payload)
         self.window.info_dialog(title='Сообщение:', message=str(response))
-
+        self.eng_word_input.value = None
+        self.rus_word_input.value = None
 
 class UpdateWordBox(BaseBox):
     """Update Word Box."""
