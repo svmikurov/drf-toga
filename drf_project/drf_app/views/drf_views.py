@@ -12,6 +12,7 @@ IS_PERMISSION = 1
 
 
 class WordPagination(PageNumberPagination):
+    """Word list pagination."""
 
     page_size = 5
     page_size_query_param = 'page_size'
