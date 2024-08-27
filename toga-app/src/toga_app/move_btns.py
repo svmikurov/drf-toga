@@ -42,16 +42,6 @@ class BoxButtons(StyledButton):
         return StyledButton(
             'Добавить слово',
             on_press=lambda _: self.move_btn_callbacks['create_word_box'](),
-            padding_left=HALF_SMALL_PADDING,
-        )
-
-    @property
-    def btn_move_update_word_box(self) -> Button:
-        """Go to Update Word window."""
-        return StyledButton(
-            'Изменить слово',
-            on_press=lambda _: self.move_btn_callbacks['update_word_box'](),
-            padding_right=HALF_SMALL_PADDING,
         )
 
     @property

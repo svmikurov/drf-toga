@@ -7,6 +7,7 @@ from travertino.constants import CENTER, COLUMN, ITALIC
 
 from toga_app.boxes.base import BaseBox
 from toga_app.boxes.styled import (
+    HALF_SMALL_PADDING,
     BoxHeading,
     PartSplitBox,
     StyledButton,
@@ -44,9 +45,15 @@ class WordsBox(BaseBox):
             ),
         )
 
+        self.btn_update = StyledButton(
+            'Изменить',
+            on_press=self.update_handler,
+            padding_right=HALF_SMALL_PADDING,
+        )
         self.btn_delete = StyledButton(
-            'Удалить слово',
+            'Удалить',
             on_press=self.delete_handler,
+            padding_left=HALF_SMALL_PADDING,
         )
 
         # Create navigation box
@@ -62,7 +69,7 @@ class WordsBox(BaseBox):
         self.nav_box.add(self.left_box, self.right_box)
         self.left_box.add(
             self.move_btns.btn_move_main_box,
-            self.move_btns.btn_move_update_word_box,
+            self.btn_update,
         )
         self.right_box.add(
             self.move_btns.btn_move_create_word_box,
@@ -78,10 +85,28 @@ class WordsBox(BaseBox):
         self.fill_table()
         self.window.info_dialog(title='Сообщение:', message=response)
 
+    def update_handler(self, widget: Widget) -> None:
+        """Update word handler."""
+        try:
+            self.fill_update_word_input()
+            self.app.to_update_word_box()
+        except AttributeError as e:
+            self.window.info_dialog('Сообщение:', 'Выберите слово')
+
     ####################################################################
     def fill_table(self) -> None:
         """Fill the Word Table box."""
         self.words_table.data = send_get_request(WORDS_PATH)
+
+    def fill_update_word_input(self) -> None:
+        """Fill the word update input fields."""
+        # Get word data.
+        word_data = self.words_table.selection
+        # Fill update word box.
+        update_word_box = self.app.update_word_box
+        update_word_box.word_pk = word_data.pk
+        update_word_box.eng_word_input.value = word_data.eng_word
+        update_word_box.rus_word_input.value = word_data.rus_word
 
 
 class CreateWordBox(BaseBox):
