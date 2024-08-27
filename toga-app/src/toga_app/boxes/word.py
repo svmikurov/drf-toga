@@ -1,7 +1,5 @@
 """Word boxes."""
 
-from urllib.parse import urljoin
-
 import toga
 from toga import Widget
 from toga.style import Pack
@@ -17,8 +15,8 @@ from toga_app.boxes.styled import (
 from toga_app.contrib.http_requests import (
     send_delete_request,
     send_get_request,
-    send_put_request,
     send_post_request,
+    send_put_request,
 )
 from toga_app.move_btns import BoxButtons
 
@@ -46,46 +44,30 @@ class WordsBox(BaseBox):
             ),
         )
 
-        # Boxes
-        self.line_box1 = BaseBox()
-
-        ################################################################
-        # Buttons
         self.btn_delete = StyledButton(
             'Удалить слово',
             on_press=self.delete_handler,
         )
 
-        ################################################################
-        # Add the content on the Words Box
+        # Create navigation box
+        self.nav_box = toga.Box()
+        self.left_box = PartSplitBox()
+        self.right_box = PartSplitBox()
+
+        # Build widget tree
         self.add(
-            self.box_heading,
-            toga.Box(
-                children=[
-                    toga.Box(
-                        style=Pack(flex=1, direction=COLUMN, alignment=CENTER),
-                        children=[
-                            self.move_btns.btn_move_main_box,
-                            self.move_btns.btn_move_update_word_box,
-                        ],
-                    ),
-                    toga.Box(
-                        style=Pack(flex=1, direction=COLUMN, alignment=CENTER),
-                        children=[
-                            self.move_btns.btn_move_create_word_box,
-                            self.btn_delete,
-                        ],
-                    ),
-                ],
-            ),
+            self.nav_box,
             self.words_table,
         )
-
-    ####################################################################
-    # Table callback functions
-    def update_table_handler(self, widget: Widget) -> None:
-        """Update Word List table."""
-        self.fill_table()
+        self.nav_box.add(self.left_box, self.right_box)
+        self.left_box.add(
+            self.move_btns.btn_move_main_box,
+            self.move_btns.btn_move_update_word_box,
+        )
+        self.right_box.add(
+            self.move_btns.btn_move_create_word_box,
+            self.btn_delete,
+        )
 
     ####################################################################
     # Button callback functions
@@ -151,6 +133,7 @@ class CreateWordBox(BaseBox):
         self.eng_word_input.value = None
         self.rus_word_input.value = None
 
+
 class UpdateWordBox(BaseBox):
     """Update Word Box."""
 
@@ -165,8 +148,8 @@ class UpdateWordBox(BaseBox):
         self.btns_split_box = toga.Box()
         self.left_box = PartSplitBox()
         self.right_box = PartSplitBox()
-
         self.btns_split_box.add(self.right_box, self.left_box)
+
         self.right_box.insert(0, self.move_btns.btn_move_main_box)
         self.left_box.insert(0, self.move_btns.btn_move_words_box)
 
