@@ -35,8 +35,8 @@ class WordsBox(BaseBox):
 
         # Table
         self.words_table = toga.Table(
-            headings=['По английски', 'По русски'],
-            accessors=['eng_word', 'rus_word'],
+            headings=['ID', 'По английски', 'По русски'],
+            accessors=['pk', 'eng_word', 'rus_word'],
             style=Pack(
                 padding=(14, 7, 7, 7),
                 flex=1,
