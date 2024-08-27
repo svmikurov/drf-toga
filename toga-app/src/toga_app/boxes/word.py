@@ -85,7 +85,7 @@ class WordsBox(BaseBox):
             response = send_delete_request(delete_path)
             self.fill_table()
             self.window.info_dialog(title='Сообщение:', message=response)
-        except AttributeError as e:
+        except AttributeError:
             self.window.info_dialog('Сообщение:', 'Выберите слово')
 
     def update_handler(self, widget: Widget) -> None:
@@ -93,7 +93,7 @@ class WordsBox(BaseBox):
         try:
             self.fill_update_word_input()
             self.app.to_update_word_box()
-        except AttributeError as e:
+        except AttributeError:
             self.window.info_dialog('Сообщение:', 'Выберите слово')
 
     ####################################################################
