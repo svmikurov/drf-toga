@@ -5,7 +5,7 @@ from enum import IntEnum
 from toga.fonts import SYSTEM_DEFAULT_FONT_SIZE
 from toga.style.pack import MONOSPACE
 
-MAIN_WINDOW_SIZE = (300, 500)
+MAIN_WINDOW_SIZE = (350, 500)
 
 LINE_HEIGHT = 30
 
