@@ -47,10 +47,11 @@ class MuAuth(httpx.Auth):
 auth = MuAuth('admin', '1q2s3d4r') if IS_AUTH else None
 
 
-def send_get_request(path: str) -> list[dict]:
+def send_get_request(path: str, url: str | None = None) -> list[dict]:
     """Send a `GET` request."""
+    request_url = url or urljoin(HOST_API, path)
     with httpx.Client(auth=auth) as client:
-        response = client.get(url=urljoin(HOST_API, path))
+        response = client.get(url=request_url)
     return response.json()
 
 
