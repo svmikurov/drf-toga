@@ -6,27 +6,9 @@ from toga_app import boxes
 from toga_app.consts import MAIN_WINDOW_SIZE
 from toga_app.move_btns import BoxButtons
 
-BOX_CLASSES = {
-    'main_box': boxes.MainBox,
-    'words_box': boxes.WordsBox,
-    'create_word_box': boxes.CreateWordBox,
-    'update_word_box': boxes.UpdateWordBox,
-    'explore_lsp_box': boxes.ExploreLSPBox,
-    'auth_box': boxes.AuthenticationBox,
-}
-
 
 class TogaApp(toga.App):
     """Main app instance."""
-
-    main_box: boxes.MainBox
-    words_box: boxes.WordsBox
-    words_table: toga.Table
-    create_word_box: boxes.CreateWordBox
-    update_word_box: boxes.UpdateWordBox
-    explore_lsp_box: boxes.ExploreLSPBox
-    auth_box: boxes.AuthenticationBox
-    move_btns: BoxButtons
 
     def __init__(self) -> None:
         """Construct the Main Box window."""
@@ -40,9 +22,14 @@ class TogaApp(toga.App):
             'auth_box': self.to_auth_box,
         }
         self.move_btns = BoxButtons(self.move_btn_callbacks)
-        # Create Box instants.
-        for instant_name, box_class in BOX_CLASSES.items():
-            setattr(self, instant_name, box_class(self.move_btns))
+
+        # Create Boxes.
+        self.main_box = boxes.MainBox(self.move_btns)
+        self.words_box = boxes.WordsBox(self.move_btns)
+        self.create_word_box = boxes.CreateWordBox(self.move_btns)
+        self.update_word_box = boxes.UpdateWordBox(self.move_btns)
+        self.explore_lsp_box = boxes.ExploreLSPBox(self.move_btns)
+        self.auth_box = boxes.AuthenticationBox(self.move_btns)
 
     def startup(self) -> None:
         """Construct Main window consider other windows."""
