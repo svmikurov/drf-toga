@@ -199,3 +199,6 @@ class UpdateWordBox(BaseBox):
             title='Результат отправки запроса',
             message=response,
         )
+        self.eng_word_input.value = None
+        self.rus_word_input.value = None
+        self.app.to_words_box()
